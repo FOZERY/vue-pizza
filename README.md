@@ -1,6 +1,6 @@
-# pizza_vue
+# Pizza_Vue3
 
-This template should help get you started developing with Vue 3 in Vite.
+My frontend project writting on Vue3.js + Tailwind CSS for school course
 
 ## Recommended IDE Setup
 
