@@ -1,15 +1,50 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import CardList from './CardList.vue';
 
 const props = defineProps({
     items: Array,
     section: String,
 });
 
-console.log(props.section);
 const sectionTitle = ref('');
 
-import CardList from './CardList.vue';
+const setSectionTitle = () => {
+    switch (props.section) {
+        case 'pizzas': {
+            sectionTitle.value = 'Пиццы';
+            break;
+        }
+        case 'rolls': {
+            sectionTitle.value = 'Роллы';
+            break;
+        }
+        case 'sushi': {
+            sectionTitle.value = 'Суши';
+            break;
+        }
+        case 'combos': {
+            sectionTitle.value = 'Комбо';
+            break;
+        }
+        case 'snacks': {
+            sectionTitle.value = 'Закуски';
+            break;
+        }
+        case 'deserts': {
+            sectionTitle.value = 'Десерты';
+            break;
+        }
+        case 'drinks': {
+            sectionTitle.value = 'Напитки';
+            break;
+        }
+    }
+};
+
+onMounted(() => {
+    setSectionTitle();
+});
 </script>
 
 <template>
