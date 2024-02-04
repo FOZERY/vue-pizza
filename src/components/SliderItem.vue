@@ -3,7 +3,7 @@
         href="#"
         class="flex bg-white rounded-2xl shadow-lg gap-5 p-2 cursor-pointer hover:-translate-y-0.5 transition duration-300"
     >
-        <img class="max-w-20 max-h-20" src="/pizzas/3pizzas.jpeg" alt="Карбонара" />
+        <img class="max-w-20 max-h-20" src="/pizzas/pepperoni.png" alt="Карбонара" />
 
         <div class="flex flex-col justify-center gap-0">
             <span class="text-lg font-semibold">Карбонара</span>

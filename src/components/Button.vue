@@ -6,6 +6,6 @@ defineProps({
 
 <template>
     <button class="rounded-3xl px-3 py-1 transition duration-300">
-        {{ buttonName }}
+        <slot></slot>
     </button>
 </template>

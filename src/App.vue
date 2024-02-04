@@ -1,24 +1,44 @@
 <script setup>
+import { ref } from 'vue';
+
+import Wrapper from './components/Wrapper.vue';
 import Header from './components/Header.vue';
 import Navbar from './components/Navbar.vue';
-import Slider from './components/Slider.vue';
+import Footer from './components/Footer.vue';
+import HeaderDrawer from './components/HeaderDrawer.vue';
+import Home from './pages/Home.vue';
+
+const headerDrawerOpen = ref(false);
+
+const openHeaderDrawer = () => {
+    headerDrawerOpen.value = true;
+};
+
+const closeHeaderDrawer = () => {
+    headerDrawerOpen.value = false;
+};
 </script>
 
 <template>
-    <div class="w-9/12 mx-auto h-screen">
-        <Header />
+    <HeaderDrawer v-if="headerDrawerOpen" />
 
-        <Navbar />
+    <Wrapper>
+        <Header
+            @closeHeaderDrawer="closeHeaderDrawer"
+            @openHeaderDrawer="openHeaderDrawer"
+            :headerDrawerOpen="headerDrawerOpen"
+        />
+    </Wrapper>
 
-        <main class="py-3">
-            <section class="mb-7">
-                <h2 class="text-2xl font-medium mb-2">Новинки</h2>
+    <Navbar />
 
-                <Slider />
-            </section>
-            <section class="mb-7">
-                <h2 class="text-2xl font-medium mb-2">Пиццы</h2>
-            </section>
+    <Wrapper>
+        <main class="pt-3 pb-3 sm:pb-7">
+            <Home />
         </main>
-    </div>
+    </Wrapper>
+
+    <Footer />
 </template>
+
+<style scoped></style>

@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@splidejs/vue-splide": "^0.6.12",
+    "axios": "^1.6.7",
+    "scroll-snap-slider": "^3.2.0",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },

@@ -1,7 +1,6 @@
 <script setup>
 import SliderItem from './SliderItem.vue';
 import { Splide, SplideTrack, SplideSlide } from '@splidejs/vue-splide';
-import { onMounted } from 'vue';
 
 const sliderOptions = {
     type: 'slide',
@@ -20,11 +19,19 @@ const sliderOptions = {
         },
 
         1024: {
-            perPage: 2,
+            perPage: 3,
         },
 
         768: {
+            perPage: 2,
+        },
+        540: {
             perPage: 1,
+            padding: { left: 5, right: 150 },
+        },
+        420: {
+            perPage: 1,
+            padding: { left: 5, right: 60 },
         },
     },
     autoplay: true,
