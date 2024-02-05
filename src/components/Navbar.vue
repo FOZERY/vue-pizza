@@ -3,11 +3,8 @@ import { onMounted } from 'vue';
 
 import Button from './Button.vue';
 
-const handleScroll = () => {
-    const nav = document.querySelector('.nav');
-    const sticky = nav.offsetTop;
-
-    if (window.scrollY >= sticky) {
+const handleScroll = (nav, navOffset) => {
+    if (window.scrollY > navOffset) {
         nav.classList.add('shadow-md');
     } else {
         nav.classList.remove('shadow-md');
@@ -15,7 +12,11 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
-    window.addEventListener('scroll', handleScroll);
+    const nav = document.querySelector('.nav');
+    const navOffset = nav.offsetTop;
+    window.addEventListener('scroll', () => {
+        handleScroll(nav, navOffset);
+    });
 });
 </script>
 
