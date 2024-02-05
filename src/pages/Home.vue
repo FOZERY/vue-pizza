@@ -7,25 +7,20 @@ import Slider from '../components/Slider.vue';
 import CardList from '../components/CardList.vue';
 import MenuSection from '@/components/MenuSection.vue';
 
-const items = ref([]);
+// const items = ref([]);
 
-const sections = reactive({
-    pizzas: [],
-    rolls: [],
-    sushi: [],
-    combos: [],
-    snacks: [],
-    deserts: [],
-    drinks: [],
-});
+const sections = ref({});
 
 const fetchItems = async () => {
     try {
-        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
+        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products_test`);
+        [sections.value] = data;
 
-        data.forEach((item) => sections[item.section].push(item));
+        // data.forEach((item) => sections[item.section].push(item));
 
-        items.value = data;
+        console.log(sections.value);
+
+        // [{}]
     } catch (err) {
         console.log(err);
     }
@@ -43,9 +38,10 @@ onMounted(() => {
         <Slider />
     </section>
     <MenuSection
-        v-for="(items, section) in sections"
+        v-for="(sectionObj, section) in sections"
         :key="section"
         :section="section"
-        :items="items"
+        :sectionTitle="sectionObj.title"
+        :items="sectionObj.items"
     ></MenuSection>
 </template>
