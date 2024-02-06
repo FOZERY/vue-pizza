@@ -1,7 +1,10 @@
 <script setup>
-import Card from './Card.vue';
+import { inject } from 'vue';
 
-defineProps({
+import Card from './Card.vue';
+import CardSkeleton from './Skeletons/CardSkeleton.vue';
+
+const props = defineProps({
     items: Array,
 });
 </script>
@@ -15,7 +18,7 @@ defineProps({
             :description="item.description"
             :price="item.price"
             :imageUrl="item.imageUrl"
-            :section="item.section"
+            :section="item.section.eng"
         />
     </div>
 </template>

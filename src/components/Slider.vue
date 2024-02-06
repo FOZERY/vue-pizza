@@ -37,34 +37,21 @@ const sliderOptions = {
     autoplay: true,
     interval: 5000,
 };
+
+defineProps({
+    sliderItems: Array,
+});
 </script>
 
 <template>
     <Splide :has-track="false" :options="sliderOptions" aria-label="">
         <SplideTrack class="py-5">
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
-            </SplideSlide>
-            <SplideSlide>
-                <SliderItem />
+            <SplideSlide v-for="item in sliderItems" :key="item.id">
+                <SliderItem name:="item.name" 
+    :description="item.description"
+    :price="item.price"
+    :imageUrl="item.imageUrl"
+    :section="item.section.eng"/>
             </SplideSlide>
         </SplideTrack>
 

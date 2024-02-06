@@ -7,41 +7,58 @@ import Slider from '../components/Slider.vue';
 import CardList from '../components/CardList.vue';
 import MenuSection from '@/components/MenuSection.vue';
 
-// const items = ref([]);
+const items = ref([]);
+const sliderItems = ref([]);
 
-const sections = ref({});
+const sections = reactive({});
 
 const fetchItems = async () => {
     try {
-        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products_test`);
-        [sections.value] = data;
+        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
 
-        // data.forEach((item) => sections[item.section].push(item));
+        items.value = data;
 
-        console.log(sections.value);
-
-        // [{}]
+        data.forEach((item) => {
+            if (!sections[item.section.eng]) {
+                sections[item.section.eng] = {
+                    sectionTitle: item.section.ru,
+                    items: [],
+                };
+            }
+            sections[item.section.eng]['items'].push(item);
+        });
     } catch (err) {
         console.log(err);
     }
 };
 
-onMounted(() => {
-    fetchItems();
-});
+const fetchSliderItems = async () => {
+    try {
+        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products_slider`);
+
+        sliderItems.value = data;
+
+        console.log(sliderItems.value);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+await fetchSliderItems();
+await fetchItems();
 </script>
 
 <template>
     <section class="mb-5">
         <h2 class="text-2xl font-medium">Новинки</h2>
 
-        <Slider />
+        <Slider :sliderItems="sliderItems" />
     </section>
     <MenuSection
         v-for="(sectionObj, section) in sections"
         :key="section"
         :section="section"
-        :sectionTitle="sectionObj.title"
+        :sectionTitle="sectionObj.sectionTitle"
         :items="sectionObj.items"
     ></MenuSection>
 </template>
