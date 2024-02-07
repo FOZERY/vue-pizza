@@ -1,6 +1,8 @@
 <script setup>
 import Logo from './Logo.vue';
 import Wrapper from './Wrapper.vue';
+
+const emit = defineEmits(['headerBurgerClick']);
 </script>
 
 <template>
@@ -8,17 +10,24 @@ import Wrapper from './Wrapper.vue';
         <div class="flex h-full flex-col gap-5">
             <div>
                 <Wrapper>
-                    <div class="flex items-center py-4">
-                        <div class="flex flex-col ml-1">
-                            <h1
-                                class="text-2xl md:text-3xl font-semibold uppercase tracking-tigher leading-5 text-white"
-                            >
-                                Roblox
-                            </h1>
-                            <span
-                                class="text-sm md:text-base tracking-tighter md:tracking-tight text-white"
-                                >Пицца & Роллы</span
-                            >
+                    <div class="flex justify-between py-4 items-center">
+                        <div class="flex items-center">
+                            <div class="flex flex-col ml-1">
+                                <h1
+                                    class="text-2xl md:text-3xl font-semibold uppercase tracking-tigher leading-5 text-white"
+                                >
+                                    Roblox
+                                </h1>
+                                <span
+                                    class="text-sm md:text-base tracking-tighter md:tracking-tight text-white"
+                                    >Пицца & Роллы</span
+                                >
+                            </div>
+                        </div>
+                        <div class="header__nav-btn md:hidden">
+                            <button @click="emit('headerBurgerClick')" class="nav-icon-btn">
+                                <div class="nav-icon nav-icon--active" id="nav-icon"></div>
+                            </button>
                         </div>
                     </div>
                 </Wrapper>
@@ -87,3 +96,68 @@ import Wrapper from './Wrapper.vue';
         </div>
     </div>
 </template>
+
+<style>
+.nav-icon-btn {
+    --time: 0.1s;
+    --width: 20px;
+    --height: 30px;
+    --line-height: 2px;
+    --line-margin: 1px;
+    --color: #000;
+    --color-active: #fff;
+
+    height: var(--height);
+    width: var(--width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-icon {
+    position: relative;
+    width: var(--width);
+    height: var(--line-height);
+    background-color: var(--color);
+}
+
+.nav-icon::before,
+.nav-icon::after {
+    content: '';
+    display: block;
+
+    position: absolute;
+    left: 0;
+
+    width: var(--width);
+    height: var(--line-height);
+
+    background-color: var(--color);
+}
+
+.nav-icon::before {
+    top: calc(var(--line-margin) * -6);
+}
+
+.nav-icon::after {
+    top: calc(var(--line-margin) * 6);
+}
+
+.nav-icon.nav-icon--active {
+    background-color: transparent;
+}
+
+.nav-icon.nav-icon--active::before,
+.nav-icon.nav-icon--active::after {
+    background-color: var(--color-active);
+    top: 0;
+}
+
+.nav-icon.nav-icon--active::before {
+    transform: rotate(45deg);
+}
+
+.nav-icon.nav-icon--active::after {
+    transform: rotate(-45deg);
+}
+</style>

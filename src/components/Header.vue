@@ -3,21 +3,7 @@ import { onMounted } from 'vue';
 import Button from './Button.vue';
 import Logo from './Logo.vue';
 
-const props = defineProps({
-    headerDrawerOpen: Boolean,
-});
-
-const emit = defineEmits(['closeHeaderDrawer', 'openHeaderDrawer']);
-
-let navIcon;
-onMounted(() => {
-    navIcon = document.querySelector('.nav-icon');
-});
-
-const onNavBtnClick = () => {
-    props.headerDrawerOpen ? emit('closeHeaderDrawer') : emit('openHeaderDrawer');
-    navIcon.classList.toggle('nav-icon--active');
-};
+const emit = defineEmits(['headerBurgerClick']);
 </script>
 
 <template>
@@ -56,82 +42,12 @@ const onNavBtnClick = () => {
             >
 
             <div class="header__nav-btn md:hidden">
-                <button @click="onNavBtnClick" class="nav-icon-btn">
-                    <div class="nav-icon z-30" id="nav-icon"></div>
+                <button @click="emit('headerBurgerClick')" class="nav-icon-btn">
+                    <div class="nav-icon" id="nav-icon"></div>
                 </button>
             </div>
         </div>
     </header>
 </template>
 
-<style scoped>
-.nav-icon-btn {
-    --time: 0.1s;
-    --width: 20px;
-    --height: 30px;
-    --line-height: 2px;
-    --line-margin: 1px;
-    --color: #000;
-    --color-active: #fff;
-
-    height: var(--height);
-    width: var(--width);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-icon {
-    position: relative;
-    width: var(--width);
-    height: var(--line-height);
-    background-color: var(--color);
-}
-
-.nav-icon::before,
-.nav-icon::after {
-    content: '';
-    display: block;
-
-    position: absolute;
-    left: 0;
-
-    width: var(--width);
-    height: var(--line-height);
-
-    background-color: var(--color);
-    transition:
-        transform var(--time) ease-in,
-        top var(--time) linear var(--time);
-}
-
-.nav-icon::before {
-    top: calc(var(--line-margin) * -6);
-}
-
-.nav-icon::after {
-    top: calc(var(--line-margin) * 6);
-}
-
-.nav-icon.nav-icon--active {
-    background-color: transparent;
-}
-
-.nav-icon.nav-icon--active::before,
-.nav-icon.nav-icon--active::after {
-    background-color: var(--color-active);
-    top: 0;
-    transition:
-        top var(--time) linear,
-        transform var(--time) ease-in var(--time),
-        background-color var(--time) ease-in;
-}
-
-.nav-icon.nav-icon--active::before {
-    transform: rotate(45deg);
-}
-
-.nav-icon.nav-icon--active::after {
-    transform: rotate(-45deg);
-}
-</style>
+<style scoped></style>

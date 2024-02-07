@@ -32,19 +32,6 @@ const fetchItems = async () => {
     }
 };
 
-const fetchSliderItems = async () => {
-    try {
-        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products_slider`);
-
-        sliderItems.value = data;
-
-        console.log(sliderItems.value);
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-await fetchSliderItems();
 await fetchItems();
 </script>
 
