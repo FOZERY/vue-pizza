@@ -1,11 +1,14 @@
 <script setup>
-import { defineAsyncComponent, ref } from 'vue';
+import { watch, ref } from 'vue';
 
 import Wrapper from './components/Wrapper.vue';
 import Header from './components/Header.vue';
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import HeaderDrawer from './components/HeaderDrawer.vue';
+import Drawer from './components/Drawer.vue';
+import Cart from './components/Cart.vue';
+
 import Home from './pages/Home.vue';
 import HomeSkeleton from './pages/HomeSkeleton.vue';
 
@@ -18,17 +21,25 @@ const openHeaderDrawer = () => {
 const closeHeaderDrawer = () => {
     headerDrawerOpen.value = false;
 };
+
+const headerBurgerClick = () => {
+    headerDrawerOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
+};
+
+watch(headerDrawerOpen, () => {
+    headerDrawerOpen.value
+        ? (document.body.style.overflow = 'hidden')
+        : (document.body.style.overflow = 'auto');
+});
 </script>
 
 <template>
-    <HeaderDrawer v-if="headerDrawerOpen" />
+    <Drawer><Cart /></Drawer>
+
+    <HeaderDrawer v-if="headerDrawerOpen" @headerBurgerClick="headerBurgerClick" />
 
     <Wrapper>
-        <Header
-            @closeHeaderDrawer="closeHeaderDrawer"
-            @openHeaderDrawer="openHeaderDrawer"
-            :headerDrawerOpen="headerDrawerOpen"
-        />
+        <Header @headerBurgerClick="headerBurgerClick" />
     </Wrapper>
 
     <Navbar />
