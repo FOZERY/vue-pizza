@@ -47,11 +47,13 @@ defineProps({
     <Splide :has-track="false" :options="sliderOptions" aria-label="">
         <SplideTrack class="py-5">
             <SplideSlide v-for="item in sliderItems" :key="item.id">
-                <SliderItem name:="item.name" 
-    :description="item.description"
-    :price="item.price"
-    :imageUrl="item.imageUrl"
-    :section="item.section.eng"/>
+                <SliderItem
+                    :itemId="item.id"
+                    :name="item.name"
+                    :price="item.price"
+                    :imageUrl="item.imageUrl"
+                    :section="item.section.eng"
+                />
             </SplideSlide>
         </SplideTrack>
 

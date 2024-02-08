@@ -7,6 +7,12 @@ import CardSkeleton from './Skeletons/CardSkeleton.vue';
 const props = defineProps({
     items: Array,
 });
+
+onst { addToCart } = inject('cart');
+
+const onClickAdd = () => {
+    addToCart(item);
+}
 </script>
 
 <template>
@@ -14,6 +20,7 @@ const props = defineProps({
         <Card
             v-for="item in items"
             :key="item.id"
+            :itemId="item.id"
             :name="item.name"
             :description="item.description"
             :price="item.price"

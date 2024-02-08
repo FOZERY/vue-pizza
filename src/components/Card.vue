@@ -1,5 +1,5 @@
 <script setup>
-import { watch, ref, onMounted } from 'vue';
+import { watch, ref, onMounted, inject } from 'vue';
 
 import Button from './Button.vue';
 
@@ -9,6 +9,7 @@ const props = defineProps({
     price: Number,
     imageUrl: String,
     section: String,
+    isAdded: Boolean,
 });
 
 const cardBtnText = ref('');
@@ -44,8 +45,15 @@ onMounted(() => {
             <div class="flex justify-between items-center">
                 <span class="hidden sm:inline font-medium">от {{ price }} ₽</span>
                 <Button
+                    @click="onClickAdd"
+                    v-if="isAdded"
                     class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
                     >{{ cardBtnText }}</Button
+                >
+                <Button
+                    v-else
+                    class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
+                    >Выбрано</Button
                 >
             </div>
         </div>
