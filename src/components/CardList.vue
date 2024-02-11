@@ -8,11 +8,7 @@ const props = defineProps({
     items: Array,
 });
 
-onst { addToCart } = inject('cart');
-
-const onClickAdd = () => {
-    addToCart(item);
-}
+const emit = defineEmits(['addToCart']);
 </script>
 
 <template>
@@ -26,6 +22,7 @@ const onClickAdd = () => {
             :price="item.price"
             :imageUrl="item.imageUrl"
             :section="item.section.eng"
+            :addToCart="() => emit('addToCart', item)"
         />
     </div>
 </template>

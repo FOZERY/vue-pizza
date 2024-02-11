@@ -6,16 +6,13 @@ import { onMounted, provide, ref, reactive } from 'vue';
 import Slider from '../components/Slider.vue';
 import CardList from '../components/CardList.vue';
 import MenuSection from '@/components/MenuSection.vue';
+import Navbar from '@/components/Navbar.vue';
+import Wrapper from '@/components/Wrapper.vue';
 
 const items = ref([]);
 const sliderItems = ref([]);
-const cart = ref([]);
-const sections = reactive({});
 
-const addToCart = (item) => {
-    cart.value.push(item);
-    item.isAdded = true;
-};
+const sections = reactive({});
 
 const addToSlide = async (items) => {
     await items.forEach((item) => {
@@ -50,8 +47,6 @@ const fetchItems = async () => {
 
 await fetchItems();
 await addToSlide(items.value);
-
-provide('cart', addToCart);
 </script>
 
 <template>
@@ -60,6 +55,7 @@ provide('cart', addToCart);
 
         <Slider :sliderItems="sliderItems" />
     </section>
+
     <MenuSection
         v-for="(sectionObj, section) in sections"
         :key="section"

@@ -10,21 +10,10 @@ const props = defineProps({
     imageUrl: String,
     section: String,
     isAdded: Boolean,
+    addToCart: Function,
 });
 
-const cardBtnText = ref('');
-
-const resizeWindowEvent = () => {
-    window.innerWidth >= 640
-        ? (cardBtnText.value = 'Выбрать')
-        : (cardBtnText.value = `${props.price} ₽`);
-};
-
-window.addEventListener('resize', resizeWindowEvent);
-
-onMounted(() => {
-    resizeWindowEvent();
-});
+const isMobile = inject('isMobile');
 </script>
 <template>
     <div
@@ -45,15 +34,10 @@ onMounted(() => {
             <div class="flex justify-between items-center">
                 <span class="hidden sm:inline font-medium">от {{ price }} ₽</span>
                 <Button
-                    @click="onClickAdd"
-                    v-if="isAdded"
+                    v-if="!isAdded"
+                    @click="addToCart"
                     class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
-                    >{{ cardBtnText }}</Button
-                >
-                <Button
-                    v-else
-                    class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
-                    >Выбрано</Button
+                    >{{ isMobile ? `От ${price} ₽` : `Выбрать` }}</Button
                 >
             </div>
         </div>

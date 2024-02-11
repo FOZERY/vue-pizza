@@ -11,6 +11,8 @@ const handleScroll = (nav, navOffset) => {
     }
 };
 
+const emit = defineEmits(['openDrawer']);
+
 onMounted(() => {
     const nav = document.querySelector('.nav');
     const navOffset = nav.offsetTop;
@@ -22,7 +24,7 @@ onMounted(() => {
 
 <template>
     <nav class="nav sticky top-0 py-4 z-10 overflow-x-auto">
-        <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-auto flex justify-between items-center">
+        <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-5 sm:mx-auto flex justify-between items-center">
             <ul class="flex gap-3 sm:gap-5 font-base sm:font-medium">
                 <li class="cursor-pointer hover:text-red-700 transition duration-300">
                     <a
@@ -80,6 +82,7 @@ onMounted(() => {
                 </li>
             </ul>
             <Button
+                @click="emit('openDrawer')"
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
                 >Корзина</Button
             >

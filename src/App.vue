@@ -1,5 +1,5 @@
 <script setup>
-import { watch, ref } from 'vue';
+import { watch, ref, provide, onMounted } from 'vue';
 
 import Wrapper from './components/Wrapper.vue';
 import Header from './components/Header.vue';
@@ -8,41 +8,82 @@ import Footer from './components/Footer.vue';
 import HeaderDrawer from './components/HeaderDrawer.vue';
 import Drawer from './components/Drawer.vue';
 import Cart from './components/Cart.vue';
+import CartButton from './components/CartButton.vue';
 
 import Home from './pages/Home.vue';
 import HomeSkeleton from './pages/HomeSkeleton.vue';
 
-const headerDrawerOpen = ref(false);
+const cart = ref([]);
+const addToCart = (item) => {
+    cart.value.push(item);
+    item.isAdded = true;
+    console.log(cart.value);
+};
+
+const isMobile = ref(false);
+
+const resizeWindowEvent = () => {
+    window.innerWidth >= 640 ? (isMobile.value = false) : (isMobile.value = true);
+};
+
+// drawer
+const drawerIsOpen = ref(false);
+
+const openDrawer = () => {
+    drawerIsOpen.value = true;
+};
+const closeDrawer = () => {
+    drawerIsOpen.value = false;
+};
+
+// header drawer
+const headerDrawerIsOpen = ref(false);
 
 const openHeaderDrawer = () => {
-    headerDrawerOpen.value = true;
+    headerDrawerIsOpen.value = true;
 };
 
 const closeHeaderDrawer = () => {
-    headerDrawerOpen.value = false;
+    headerDrawerIsOpen.value = false;
 };
 
 const headerBurgerClick = () => {
-    headerDrawerOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
+    headerDrawerIsOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
 };
 
-watch(headerDrawerOpen, () => {
-    headerDrawerOpen.value
+provide('cart', { closeDrawer, addToCart });
+provide('isMobile', isMobile);
+
+watch(headerDrawerIsOpen, () => {
+    headerDrawerIsOpen.value
         ? (document.body.style.overflow = 'hidden')
         : (document.body.style.overflow = 'auto');
+});
+
+watch(drawerIsOpen, () => {
+    drawerIsOpen.value
+        ? (document.body.style.overflow = 'hidden')
+        : (document.body.style.overflow = 'auto');
+});
+
+onMounted(() => {
+    window.addEventListener('resize', resizeWindowEvent);
+    resizeWindowEvent();
 });
 </script>
 
 <template>
-    <Drawer><Cart /></Drawer>
+    <CartButton v-if="isMobile && cart.length > 0" />
 
-    <HeaderDrawer v-if="headerDrawerOpen" @headerBurgerClick="headerBurgerClick" />
+    <Drawer v-if="drawerIsOpen" @close-drawer="closeDrawer"><Cart /></Drawer>
+
+    <HeaderDrawer v-if="headerDrawerIsOpen" @header-burger-click="headerBurgerClick" />
 
     <Wrapper>
-        <Header @headerBurgerClick="headerBurgerClick" />
+        <Header @header-burger-click="headerBurgerClick" />
     </Wrapper>
 
-    <Navbar />
+    <Navbar @open-drawer="openDrawer" />
 
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
