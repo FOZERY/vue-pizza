@@ -1,14 +1,13 @@
 <script setup>
-import { inject } from 'vue';
-
 import Card from './Card.vue';
-import CardSkeleton from './Skeletons/CardSkeleton.vue';
 
 const props = defineProps({
     items: Array,
 });
 
-const { addToCart } = inject('cart');
+import { useProductsStore } from '@/stores/ProductsStore';
+
+const productsStore = useProductsStore();
 </script>
 
 <template>
@@ -22,7 +21,7 @@ const { addToCart } = inject('cart');
             :price="item.price"
             :imageUrl="item.imageUrl"
             :section="item.section.eng"
-            :addToCart="() => addToCart(item)"
+            :addToCart="() => productsStore.addToCart(item)"
         />
     </div>
 </template>

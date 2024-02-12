@@ -4,6 +4,9 @@ defineProps({
     description: String,
     price: Number,
     imageUrl: String,
+    quantity: Number,
+    incrementQuantity: Function,
+    decrementQuantity: Function,
 });
 </script>
 
@@ -21,11 +24,12 @@ defineProps({
             </div>
         </div>
         <div class="flex justify-between py-3">
-            <span>2 876 ₽</span>
+            <span>{{ quantity * price }} ₽</span>
             <div
                 class="flex bg-slate-200 rounded-3xl items-center justify-between text-stone-500 px-2 gap-3"
             >
                 <svg
+                    @click="decrementQuantity"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
@@ -35,8 +39,9 @@ defineProps({
                 >
                     <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
                 </svg>
-                <span class="text-sm">4</span>
+                <span class="text-sm">{{ quantity }}</span>
                 <svg
+                    @click="incrementQuantity"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"

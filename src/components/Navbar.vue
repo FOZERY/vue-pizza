@@ -11,7 +11,9 @@ const handleScroll = (nav, navOffset) => {
     }
 };
 
-const emit = defineEmits(['openDrawer']);
+defineProps({
+    openDrawer: Function,
+});
 
 onMounted(() => {
     const nav = document.querySelector('.nav');
@@ -82,7 +84,7 @@ onMounted(() => {
                 </li>
             </ul>
             <Button
-                @click="emit('openDrawer')"
+                @click="openDrawer"
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
                 >Корзина</Button
             >

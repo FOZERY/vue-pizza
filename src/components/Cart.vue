@@ -4,6 +4,10 @@ import { inject } from 'vue';
 import CartItemList from './CartItemList.vue';
 import Button from './Button.vue';
 
+import { useProductsStore } from '@/stores/ProductsStore';
+
+const productsStore = useProductsStore();
+
 const { closeDrawer } = inject('cart');
 </script>
 
@@ -27,6 +31,7 @@ const { closeDrawer } = inject('cart');
                 />
             </svg>
             <svg
+                @click="closeDrawer"
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
                 height="20"
@@ -45,7 +50,7 @@ const { closeDrawer } = inject('cart');
         <div class="cart__footer border-t pt-3 flex flex-col">
             <div class="flex justify-between mb-3">
                 <span class="font-medium">Сумма заказа</span>
-                <span class="font-medium">100 ₽</span>
+                <span class="font-medium">{{ productsStore.totalPrice }} ₽</span>
             </div>
             <Button class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300"
                 >Оформить заказ</Button

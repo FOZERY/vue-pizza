@@ -1,3 +1,9 @@
+<script setup>
+import { useProductsStore } from '@/stores/ProductsStore';
+
+const productsStore = useProductsStore();
+</script>
+
 <template>
     <div
         class="fixed flex justify-center items-center border border-slate-200 bottom-0 right-0 m-5 bg-white rounded-full w-12 h-12 shadow-xl cursor-pointer"
@@ -5,7 +11,7 @@
         <div
             class="absolute flex justify-center items-center bg-red-500 rounded-full -top-1 w-5 h-5 -right-2 px-1"
         >
-            <span class="text-xs text-white font-light">1</span>
+            <span class="text-xs text-white font-light">{{ productsStore.totalItems }}</span>
         </div>
         <svg
             xmlns="http://www.w3.org/2000/svg"

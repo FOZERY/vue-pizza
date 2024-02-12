@@ -1,63 +1,24 @@
 <script setup>
-import axios from 'axios';
-
-import { onMounted, provide, ref, reactive } from 'vue';
-
 import Slider from '../components/Slider.vue';
-import CardList from '../components/CardList.vue';
 import MenuSection from '@/components/MenuSection.vue';
-import Navbar from '@/components/Navbar.vue';
-import Wrapper from '@/components/Wrapper.vue';
 
-const items = ref([]);
-const sliderItems = ref([]);
+import { useProductsStore } from '@/stores/ProductsStore';
 
-const sections = reactive({});
+const productsStore = useProductsStore();
 
-const addToSlide = async (items) => {
-    await items.forEach((item) => {
-        if (item.isInSlider) {
-            sliderItems.value.push({
-                ...item,
-            });
-        }
-    });
-};
-
-const fetchItems = async () => {
-    try {
-        const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
-
-        items.value = data;
-
-        data.forEach((item) => {
-            if (!sections[item.section.eng]) {
-                sections[item.section.eng] = {
-                    sectionTitle: item.section.ru,
-                    items: [],
-                };
-            }
-            sections[item.section.eng]['items'].push(item);
-        });
-        console.log(items);
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-await fetchItems();
-await addToSlide(items.value);
+await productsStore.fetchItems();
+productsStore.addToSlide();
 </script>
 
 <template>
     <section class="mb-5">
         <h2 class="text-2xl font-medium">Новинки</h2>
 
-        <Slider :sliderItems="sliderItems" />
+        <Slider :sliderItems="productsStore.sliderItems" />
     </section>
 
     <MenuSection
-        v-for="(sectionObj, section) in sections"
+        v-for="(sectionObj, section) in productsStore.sections"
         :key="section"
         :section="section"
         :sectionTitle="sectionObj.sectionTitle"

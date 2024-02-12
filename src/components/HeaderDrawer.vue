@@ -2,7 +2,9 @@
 import Logo from './Logo.vue';
 import Wrapper from './Wrapper.vue';
 
-const emit = defineEmits(['headerBurgerClick']);
+defineProps({
+    headerBurgerClick: Function,
+});
 </script>
 
 <template>
@@ -25,7 +27,7 @@ const emit = defineEmits(['headerBurgerClick']);
                             </div>
                         </div>
                         <div class="header__nav-btn md:hidden">
-                            <button @click="emit('headerBurgerClick')" class="nav-icon-btn">
+                            <button @click="headerBurgerClick" class="nav-icon-btn">
                                 <div class="nav-icon nav-icon--active" id="nav-icon"></div>
                             </button>
                         </div>

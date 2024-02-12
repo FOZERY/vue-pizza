@@ -3,7 +3,9 @@ import { onMounted } from 'vue';
 import Button from './Button.vue';
 import Logo from './Logo.vue';
 
-const emit = defineEmits(['headerBurgerClick']);
+defineProps({
+    headerBurgerClick: Function,
+});
 </script>
 
 <template>
@@ -42,7 +44,7 @@ const emit = defineEmits(['headerBurgerClick']);
             >
 
             <div class="header__nav-btn md:hidden">
-                <button @click="emit('headerBurgerClick')" class="nav-icon-btn">
+                <button @click="headerBurgerClick" class="nav-icon-btn">
                     <div class="nav-icon" id="nav-icon"></div>
                 </button>
             </div>

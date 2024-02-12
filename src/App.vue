@@ -13,13 +13,9 @@ import CartButton from './components/CartButton.vue';
 import Home from './pages/Home.vue';
 import HomeSkeleton from './pages/HomeSkeleton.vue';
 
-const cart = ref([]);
-const addToCart = (item) => {
-    if (!item.isAdded) {
-        cart.value.push(item);
-        item.isAdded = true;
-    }
-};
+import { useProductsStore } from './stores/ProductsStore';
+
+const productsStore = useProductsStore();
 
 const isMobile = ref(false);
 
@@ -52,7 +48,7 @@ const headerBurgerClick = () => {
     headerDrawerIsOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
 };
 
-provide('cart', { cart, closeDrawer, addToCart });
+provide('cart', { closeDrawer });
 provide('isMobile', isMobile);
 
 watch(headerDrawerIsOpen, () => {
@@ -74,17 +70,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <CartButton v-if="isMobile && cart.length > 0" />
+    <CartButton @click="openDrawer" v-if="isMobile && productsStore.cartItems.length > 0" />
 
-    <Drawer v-if="drawerIsOpen" @close-drawer="closeDrawer"><Cart /></Drawer>
+    <Drawer v-if="drawerIsOpen" :close-drawer="closeDrawer"><Cart /></Drawer>
 
-    <HeaderDrawer v-if="headerDrawerIsOpen" @header-burger-click="headerBurgerClick" />
+    <HeaderDrawer v-if="headerDrawerIsOpen" :header-burger-click="headerBurgerClick" />
 
     <Wrapper>
-        <Header @header-burger-click="headerBurgerClick" />
+        <Header :header-burger-click="headerBurgerClick" />
     </Wrapper>
 
-    <Navbar @open-drawer="openDrawer" />
+    <Navbar :open-drawer="openDrawer" />
 
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
