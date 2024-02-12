@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { defineStore } from 'pinia';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 
 export const useProductsStore = defineStore('productsStore', () => {
     const items = ref([]);
@@ -48,6 +48,9 @@ export const useProductsStore = defineStore('productsStore', () => {
     // cart
     const cartItems = ref([]);
 
+    const localCart = localStorage.getItem('cartItems');
+    cartItems.value = localCart ? JSON.parse(localCart) : [];
+
     const addToCart = (item) => {
         let index = cartItems.value.findIndex((product) => product.id === item.id);
         if (index == -1) {
@@ -82,6 +85,14 @@ export const useProductsStore = defineStore('productsStore', () => {
         cartItems.value.reduce((accumulator, item) => {
             return accumulator + item.quantity;
         }, 0)
+    );
+
+    watch(
+        cartItems,
+        () => {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems.value));
+        },
+        { deep: true }
     );
 
     return {
