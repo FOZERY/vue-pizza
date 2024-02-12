@@ -1,12 +1,21 @@
+<script setup>
+defineProps({
+    name: String,
+    description: String,
+    price: Number,
+    imageUrl: String,
+});
+</script>
+
 <template>
     <div class="flex flex-col border-b last:border-0">
         <div class="flex sm:p-0 gap-2 sm:border-0">
-            <img class="w-20 h-20 sm:w-24 sm:h-24" src="/products/pizzas/pepperoni.png" />
+            <img class="w-20 h-20 sm:w-24 sm:h-24" :src="imageUrl" />
             <div class="flex flex-col gap-3 justify-between flex-1">
                 <div>
-                    <h3 class="text-lg font-medium mb-1">Карбонара</h3>
+                    <h3 class="text-lg font-medium mb-1">{{ name }}</h3>
                     <p class="text-xs sm:text-sm text-slate-500">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        {{ description }}
                     </p>
                 </div>
             </div>

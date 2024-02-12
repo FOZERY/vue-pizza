@@ -1,7 +1,3 @@
-<script setup>
-import Logo from './Logo.vue';
-</script>
-
 <template>
     <footer class="bg-stone-800 py-8">
         <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-auto grid grid-cols-1 md:grid-cols-5 gap-5">

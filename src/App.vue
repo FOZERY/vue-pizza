@@ -15,9 +15,10 @@ import HomeSkeleton from './pages/HomeSkeleton.vue';
 
 const cart = ref([]);
 const addToCart = (item) => {
-    cart.value.push(item);
-    item.isAdded = true;
-    console.log(cart.value);
+    if (!item.isAdded) {
+        cart.value.push(item);
+        item.isAdded = true;
+    }
 };
 
 const isMobile = ref(false);
@@ -51,7 +52,7 @@ const headerBurgerClick = () => {
     headerDrawerIsOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
 };
 
-provide('cart', { closeDrawer, addToCart });
+provide('cart', { cart, closeDrawer, addToCart });
 provide('isMobile', isMobile);
 
 watch(headerDrawerIsOpen, () => {
