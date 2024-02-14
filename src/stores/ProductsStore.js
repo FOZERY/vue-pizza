@@ -27,12 +27,10 @@ export const useProductsStore = defineStore('productsStore', () => {
                 }
                 sections[item.section.eng]['items'].push(item);
             });
+            isLoading.value = false;
         } catch (err) {
             console.log(err);
-        } finally {
-            isLoading.value = false;
         }
-        console.log(isLoading.value);
     };
 
     const addToSlide = () => {
@@ -65,6 +63,9 @@ export const useProductsStore = defineStore('productsStore', () => {
     };
 
     const incrementQuantity = (item) => {
+        if (item.quantity > 49) {
+            return;
+        }
         item.quantity++;
     };
 

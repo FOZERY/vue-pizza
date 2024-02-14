@@ -88,6 +88,7 @@ onMounted(() => {
                 <template #default><Home /> </template>
                 <template #fallback> <HomeSkeleton /> </template>
             </Suspense>
+            <!-- <Home /> -->
         </main>
     </Wrapper>
 
