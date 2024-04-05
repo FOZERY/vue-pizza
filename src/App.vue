@@ -9,6 +9,7 @@ import HeaderDrawer from './components/HeaderDrawer.vue';
 import Drawer from './components/Drawer.vue';
 import Cart from './components/Cart.vue';
 import CartButton from './components/CartButton.vue';
+import Popup from './components/Popup.vue';
 
 import Home from './pages/Home.vue';
 import HomeSkeleton from './pages/HomeSkeleton.vue';
@@ -20,7 +21,7 @@ const productsStore = useProductsStore();
 const isMobile = ref(false);
 
 const resizeWindowEvent = () => {
-    window.innerWidth >= 640 ? (isMobile.value = false) : (isMobile.value = true);
+    window.innerWidth >= 768 ? (isMobile.value = false) : (isMobile.value = true);
 };
 
 // drawer
@@ -72,7 +73,11 @@ onMounted(() => {
 <template>
     <CartButton @click="openDrawer" v-if="isMobile && productsStore.cartItems.length > 0" />
 
-    <Drawer v-if="drawerIsOpen" :close-drawer="closeDrawer"><Cart /></Drawer>
+    <!-- <Drawer><Popup /></Drawer> -->
+
+    <Transition>
+        <Drawer v-if="drawerIsOpen" :close-drawer="closeDrawer"><Cart /></Drawer>
+    </Transition>
 
     <HeaderDrawer v-if="headerDrawerIsOpen" :header-burger-click="headerBurgerClick" />
 
@@ -88,7 +93,6 @@ onMounted(() => {
                 <template #default><Home /> </template>
                 <template #fallback> <HomeSkeleton /> </template>
             </Suspense>
-            <!-- <Home /> -->
         </main>
     </Wrapper>
 
