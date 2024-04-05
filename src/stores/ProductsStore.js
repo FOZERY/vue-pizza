@@ -14,6 +14,7 @@ export const useProductsStore = defineStore('productsStore', () => {
 
             items.value = data;
 
+            console.log(data);
             data.forEach((item) => {
                 if (!sections[item.section.eng]) {
                     sections[item.section.eng] = {
@@ -23,6 +24,8 @@ export const useProductsStore = defineStore('productsStore', () => {
                 }
                 sections[item.section.eng]['items'].push(item);
             });
+
+            console.log(sections);
         } catch (err) {
             console.log(err);
         }
