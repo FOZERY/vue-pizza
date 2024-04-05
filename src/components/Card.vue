@@ -1,7 +1,7 @@
 <script setup>
 import { watch, ref, onMounted, inject } from 'vue';
 
-import Button from './Button.vue';
+import Button from './UI/Button.vue';
 
 const props = defineProps({
     name: String,
@@ -37,8 +37,8 @@ const isMobile = inject('isMobile');
                     v-if="!isAdded"
                     @click="addToCart"
                     class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
-                    >{{ isMobile ? `От ${price} ₽` : `Выбрать` }}</Button
-                >
+                    >{{ isMobile ? `От ${price} ₽` : `Выбрать` }}
+                </Button>
             </div>
         </div>
     </div>

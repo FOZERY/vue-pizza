@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted } from 'vue';
-import Button from './Button.vue';
-import Logo from './Logo.vue';
+import Button from './UI/Button.vue';
+import Logo from './UI/Logo.vue';
 
 defineProps({
     headerBurgerClick: Function,

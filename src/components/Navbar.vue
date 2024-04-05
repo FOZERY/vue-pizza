@@ -12,7 +12,7 @@ const handleScroll = (nav, navOffset) => {
 };
 
 defineProps({
-    openDrawer: Function,
+    openCart: Function,
 });
 
 onMounted(() => {
@@ -84,10 +84,10 @@ onMounted(() => {
                 </li>
             </ul>
             <Button
-                @click="openDrawer"
+                @click="openCart"
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
-                >Корзина</Button
-            >
+                >Корзина
+            </Button>
         </div>
     </nav>
 </template>

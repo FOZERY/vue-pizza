@@ -1,15 +1,15 @@
 <script setup>
 import { watch, ref, provide, onMounted } from 'vue';
 
-import Wrapper from './components/Wrapper.vue';
+import Wrapper from './components/Utility/Wrapper.vue';
 import Header from './components/Header.vue';
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import HeaderDrawer from './components/HeaderDrawer.vue';
 import Drawer from './components/Drawer.vue';
 import Cart from './components/Cart.vue';
-import CartButton from './components/CartButton.vue';
-import Popup from './components/Popup.vue';
+import CartButton from './components/UI/CartButton.vue';
+import Popup from '@/components/Popup.vue';
 
 import Home from './pages/Home.vue';
 import HomeSkeleton from './pages/HomeSkeleton.vue';
@@ -27,20 +27,26 @@ const resizeWindowEvent = () => {
 const popupIsOpen = ref(false);
 
 const openPopup = () => {
+    drawerIsOpen.value = true;
     popupIsOpen.value = true;
 };
 const closePopup = () => {
+    drawerIsOpen.value = false;
     popupIsOpen.value = false;
 };
+
+const cartIsOpen = ref(false);
 
 // drawer
 const drawerIsOpen = ref(false);
 
-const openDrawer = () => {
+const openCart = () => {
     drawerIsOpen.value = true;
+    cartIsOpen.value = true;
 };
-const closeDrawer = () => {
+const closeCart = () => {
     drawerIsOpen.value = false;
+    cartIsOpen.value = false;
 };
 
 // header drawer
@@ -58,19 +64,19 @@ const headerBurgerClick = () => {
     headerDrawerIsOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
 };
 
-provide('cart', { closeDrawer });
+provide('cart', { closeCart });
 provide('isMobile', isMobile);
 
 watch(headerDrawerIsOpen, () => {
     headerDrawerIsOpen.value
-        ? (document.body.style.overflow = 'hidden')
-        : (document.body.style.overflow = 'auto');
+        ? (document.body.style.overflowY = 'hidden')
+        : (document.body.style.overflowY = 'auto');
 });
 
 watch(drawerIsOpen, () => {
     drawerIsOpen.value
-        ? (document.body.style.overflow = 'hidden')
-        : (document.body.style.overflow = 'auto');
+        ? (document.body.style.overflowY = 'hidden')
+        : (document.body.style.overflowY = 'auto');
 });
 
 onMounted(() => {
@@ -80,13 +86,48 @@ onMounted(() => {
 </script>
 
 <template>
-    <CartButton @click="openDrawer" v-if="isMobile && productsStore.cartItems.length > 0" />
+    <Transition>
+        <CartButton @click="openCart" v-if="isMobile && productsStore.cartItems.length > 0" />
+    </Transition>
 
-    <Drawer v-if="!isMobile && popupIsOpen" :close-drawer="closeDrawer">
-        <Popup :close-popup="closePopup" />
-    </Drawer>
+    <Transition>
+        <Popup v-if="!isMobile && popupIsOpen" :close-popup="closePopup">
+            <template #header>
+                <h2 class="text-2xl font-medium mb-5">Вход на сайт</h2>
+            </template>
+            <template #body>
+                <form class="flex flex-col flex-1 w-96" action="" method="post">
+                    <label class="text-slate-500 mb-2" for="">Введите имя</label>
+                    <input
+                        v-model="inputName"
+                        @input="checkIsValid"
+                        class="border border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300"
+                        type="text"
+                        placeholder="Имя"
+                    />
+                    <label class="text-slate-500 my-2" for="">Введите номер телефона</label>
+                    <input
+                        v-model="inputNumber"
+                        v-mask="'+7 (###) ###-##-##'"
+                        @input="checkIsValid"
+                        class="border border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300"
+                        type="tel"
+                        placeholder="+7 (999) 999-99-99"
+                    />
+                    <input
+                        disabled
+                        id="submitRegBtn"
+                        type="submit"
+                        value="Отправить смс"
+                        class="disabled:cursor-default cursor-pointer disabled:bg-stone-500 bg-red-500 text-white rounded-xl py-2 mt-5"
+                    />
+                </form>
+            </template>
+            <template #footer></template>
+        </Popup>
+    </Transition>
 
-    <Drawer v-if="drawerIsOpen" :close-drawer="closeDrawer">
+    <Drawer v-if="cartIsOpen" :close-drawer="closeCart">
         <Cart />
     </Drawer>
 
@@ -96,7 +137,7 @@ onMounted(() => {
         <Header :open-popup="openPopup" :header-burger-click="headerBurgerClick" />
     </Wrapper>
 
-    <Navbar :open-drawer="openDrawer" />
+    <Navbar :open-cart="openCart" />
 
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
@@ -135,5 +176,15 @@ onMounted(() => {
     );
     background-size: 200% 100%;
     animation: bgAnimate 2s linear infinite;
+}
+
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
 }
 </style>

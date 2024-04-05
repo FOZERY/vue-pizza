@@ -2,22 +2,22 @@
 import { inject } from 'vue';
 
 import CartItemList from './CartItemList.vue';
-import Button from './Button.vue';
+import Button from './UI/Button.vue';
 
 import { useProductsStore } from '@/stores/ProductsStore';
 
 const productsStore = useProductsStore();
 
-const { closeDrawer } = inject('cart');
+const { closeCart } = inject('cart');
 </script>
 
 <template>
     <div
-        class="cart flex flex-col fixed h-full top-0 right-0 w-full sm:w-96 z-40 opacity-100 p-6 overflow-y-auto"
+        class="inner cart flex flex-col fixed h-full top-0 right-0 w-full sm:w-96 z-40 opacity-100 p-6 overflow-y-auto"
     >
         <div class="cart__header flex items-center gap-2 pb-4 mb-4 border-b border-stone-200">
             <svg
-                @click="closeDrawer"
+                @click="closeCart"
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
                 height="20"
@@ -31,7 +31,7 @@ const { closeDrawer } = inject('cart');
                 />
             </svg>
             <svg
-                @click="closeDrawer"
+                @click="closeCart"
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
                 height="20"
@@ -58,8 +58,8 @@ const { closeDrawer } = inject('cart');
             </div>
 
             <Button class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300"
-                >Оформить заказ</Button
-            >
+                >Оформить заказ
+            </Button>
         </div>
     </div>
 </template>

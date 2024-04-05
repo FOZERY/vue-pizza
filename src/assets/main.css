@@ -9,8 +9,11 @@
     scroll-behavior: smooth;
 } */
 
+html {
+    scrollbar-gutter: stable !important;
+}
+
 body {
     background-color: #f1f7ed;
     font-family: 'Inter', Verdana, Arial, Helvetica, sans-serif;
-    scrollbar-gutter: stable;
 }

@@ -1,6 +1,5 @@
 <script setup>
-import Logo from './Logo.vue';
-import Wrapper from './Wrapper.vue';
+import Wrapper from './Utility/Wrapper.vue';
 
 defineProps({
     headerBurgerClick: Function,
