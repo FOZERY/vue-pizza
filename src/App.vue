@@ -15,6 +15,7 @@ import Home from './pages/Home.vue';
 import HomeSkeleton from './pages/HomeSkeleton.vue';
 
 import { useProductsStore } from './stores/ProductsStore';
+import Authorization from '@/components/Authorization.vue';
 
 const productsStore = useProductsStore();
 
@@ -64,6 +65,8 @@ const headerBurgerClick = () => {
     headerDrawerIsOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
 };
 
+// form validate
+
 provide('cart', { closeCart });
 provide('isMobile', isMobile);
 
@@ -92,38 +95,7 @@ onMounted(() => {
 
     <Transition>
         <Popup v-if="!isMobile && popupIsOpen" :close-popup="closePopup">
-            <template #header>
-                <h2 class="text-2xl font-medium mb-5">Вход на сайт</h2>
-            </template>
-            <template #body>
-                <form class="flex flex-col flex-1 w-96" action="" method="post">
-                    <label class="text-slate-500 mb-2" for="">Введите имя</label>
-                    <input
-                        v-model="inputName"
-                        @input="checkIsValid"
-                        class="border border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300"
-                        type="text"
-                        placeholder="Имя"
-                    />
-                    <label class="text-slate-500 my-2" for="">Введите номер телефона</label>
-                    <input
-                        v-model="inputNumber"
-                        v-mask="'+7 (###) ###-##-##'"
-                        @input="checkIsValid"
-                        class="border border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300"
-                        type="tel"
-                        placeholder="+7 (999) 999-99-99"
-                    />
-                    <input
-                        disabled
-                        id="submitRegBtn"
-                        type="submit"
-                        value="Отправить смс"
-                        class="disabled:cursor-default cursor-pointer disabled:bg-stone-500 bg-red-500 text-white rounded-xl py-2 mt-5"
-                    />
-                </form>
-            </template>
-            <template #footer></template>
+            <Authorization />
         </Popup>
     </Transition>
 

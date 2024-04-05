@@ -44,11 +44,7 @@ defineProps({
                 </g>
             </svg>
 
-            <slot name="header"></slot>
-
-            <slot class="" name="body"></slot>
-
-            <slot name="footer"></slot>
+            <slot></slot>
         </div>
     </div>
 </template>
