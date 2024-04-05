@@ -5,6 +5,7 @@ import Logo from './Logo.vue';
 
 defineProps({
     headerBurgerClick: Function,
+    openPopup: Function,
 });
 </script>
 
@@ -39,9 +40,10 @@ defineProps({
         </div>
         <div class="header__right">
             <Button
+                @click="openPopup"
                 class="hidden md:block bg-slate-100 text-slate-500 hover:text-black hover:bg-slate-200 active:bg-slate-300"
-                >Войти</Button
-            >
+                >Войти
+            </Button>
 
             <div class="header__nav-btn md:hidden">
                 <button @click="headerBurgerClick" class="nav-icon-btn">

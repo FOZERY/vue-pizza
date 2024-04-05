@@ -24,6 +24,15 @@ const resizeWindowEvent = () => {
     window.innerWidth >= 768 ? (isMobile.value = false) : (isMobile.value = true);
 };
 
+const popupIsOpen = ref(false);
+
+const openPopup = () => {
+    popupIsOpen.value = true;
+};
+const closePopup = () => {
+    popupIsOpen.value = false;
+};
+
 // drawer
 const drawerIsOpen = ref(false);
 
@@ -73,16 +82,18 @@ onMounted(() => {
 <template>
     <CartButton @click="openDrawer" v-if="isMobile && productsStore.cartItems.length > 0" />
 
-    <!-- <Drawer><Popup /></Drawer> -->
+    <Drawer v-if="!isMobile && popupIsOpen" :close-drawer="closeDrawer">
+        <Popup :close-popup="closePopup" />
+    </Drawer>
 
-    <Transition>
-        <Drawer v-if="drawerIsOpen" :close-drawer="closeDrawer"><Cart /></Drawer>
-    </Transition>
+    <Drawer v-if="drawerIsOpen" :close-drawer="closeDrawer">
+        <Cart />
+    </Drawer>
 
     <HeaderDrawer v-if="headerDrawerIsOpen" :header-burger-click="headerBurgerClick" />
 
     <Wrapper>
-        <Header :header-burger-click="headerBurgerClick" />
+        <Header :open-popup="openPopup" :header-burger-click="headerBurgerClick" />
     </Wrapper>
 
     <Navbar :open-drawer="openDrawer" />
@@ -90,8 +101,12 @@ onMounted(() => {
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
             <Suspense>
-                <template #default><Home /> </template>
-                <template #fallback> <HomeSkeleton /> </template>
+                <template #default>
+                    <Home />
+                </template>
+                <template #fallback>
+                    <HomeSkeleton />
+                </template>
             </Suspense>
         </main>
     </Wrapper>
@@ -109,6 +124,7 @@ onMounted(() => {
         background-position: -150% 0;
     }
 }
+
 .skeleton {
     background-image: linear-gradient(
         90deg,
