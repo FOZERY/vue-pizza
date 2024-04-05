@@ -8,11 +8,7 @@ export const useProductsStore = defineStore('productsStore', () => {
     const sections = reactive({});
     const sliderItems = ref([]);
 
-    const isLoading = ref(false);
-
     const fetchItems = async () => {
-        isLoading.value = true;
-        console.log(isLoading.value);
         try {
             const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
 
@@ -27,7 +23,6 @@ export const useProductsStore = defineStore('productsStore', () => {
                 }
                 sections[item.section.eng]['items'].push(item);
             });
-            isLoading.value = false;
         } catch (err) {
             console.log(err);
         }
@@ -99,7 +94,6 @@ export const useProductsStore = defineStore('productsStore', () => {
     return {
         items,
         sections,
-        isLoading,
         sliderItems,
         cartItems,
         totalPrice,
