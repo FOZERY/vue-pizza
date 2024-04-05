@@ -46,7 +46,7 @@ export const useProductsStore = defineStore('productsStore', () => {
 
     const addToCart = (item) => {
         let index = cartItems.value.findIndex((product) => product.id === item.id);
-        if (index == -1) {
+        if (index === -1) {
             cartItems.value.push({ ...item, quantity: 1 });
         } else {
             cartItems.value[index].quantity++;

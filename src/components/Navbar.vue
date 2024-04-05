@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 
-import Button from './Button.vue';
+import Button from './UI/Button.vue';
 
 const handleScroll = (nav, navOffset) => {
     if (window.scrollY > navOffset) {
