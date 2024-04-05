@@ -6,7 +6,7 @@ const productsStore = useProductsStore();
 
 <template>
     <div
-        class="fixed flex justify-center items-center border border-slate-200 bottom-0 right-0 m-5 bg-white rounded-full w-12 h-12 shadow-xl cursor-pointer"
+        class="fixed flex justify-center items-center border border-slate-200 bottom-0 right-0 m-5 bg-white rounded-full w-12 h-12 shadow-xl cursor-pointer z-20"
     >
         <div
             class="absolute flex justify-center items-center bg-red-500 rounded-full -top-1 w-5 h-5 -right-2 px-1"

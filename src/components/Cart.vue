@@ -47,11 +47,16 @@ const { closeDrawer } = inject('cart');
             <h2 class="text-2xl font-medium">Корзина</h2>
         </div>
         <CartItemList></CartItemList>
+
         <div class="cart__footer border-t pt-3 flex flex-col">
+            <div class="">
+                <span class="font-medium">Количество: {{ productsStore.totalItems }}</span>
+            </div>
             <div class="flex justify-between mb-3">
                 <span class="font-medium">Сумма заказа</span>
                 <span class="font-medium">{{ productsStore.totalPrice }} ₽</span>
             </div>
+
             <Button class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300"
                 >Оформить заказ</Button
             >
