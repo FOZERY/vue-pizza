@@ -1,8 +1,8 @@
 <script setup>
-import Slider from '../components/Slider.vue';
+import Slider from './Slider.vue';
 import MenuSection from '@/components/MenuSection.vue';
 
-import { useProductsStore } from '@/stores/ProductsStore';
+import { useProductsStore } from '@/stores/ProductsStore.js';
 import SectionTitle from '@/components/UI/SectionTitle.vue';
 
 const productsStore = useProductsStore();
