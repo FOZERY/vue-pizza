@@ -25,7 +25,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <nav class="nav sticky top-0 py-4 z-10 overflow-x-auto">
+    <nav class="nav sticky top-0 py-4 z-10 overflow-x-auto flex-none">
         <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-5 sm:mx-auto flex justify-between items-center">
             <ul class="flex gap-3 sm:gap-5 font-base sm:font-medium">
                 <li class="cursor-pointer hover:text-red-700 transition duration-300">
