@@ -29,11 +29,17 @@ onMounted(() => {
         <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-5 sm:mx-auto flex justify-between items-center">
             <ul class="flex gap-3 sm:gap-5 font-base sm:font-medium">
                 <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
+                    <router-link
                         class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#pizzas"
-                        >Пиццы</a
+                        to="/#pizzas"
                     >
+                        Пиццы
+                    </router-link>
+                    <!--                    <a-->
+                    <!--                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"-->
+                    <!--                        href="#pizzas"-->
+                    <!--                        >Пиццы</a-->
+                    <!--                    >-->
                 </li>
                 <li class="cursor-pointer hover:text-red-700 transition duration-300">
                     <a
@@ -71,16 +77,19 @@ onMounted(() => {
                     >
                 </li>
                 <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
+                    <router-link
                         class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
                         href="#drinks"
-                        >Напитки</a
-                    >
+                        to="/"
+                        >Напитки
+                    </router-link>
                 </li>
                 <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <span class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        >Акции</span
-                    >
+                    <router-link
+                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
+                        to="/stocks"
+                        >Акции
+                    </router-link>
                 </li>
             </ul>
             <Button

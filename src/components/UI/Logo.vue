@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center">
+    <router-link class="flex items-center" to="/">
         <img class="h-12" src="/mainlogotest.png" alt="logo" />
         <div class="flex flex-col ml-3">
             <h1 class="text-2xl md:text-3xl font-semibold uppercase tracking-tigher leading-7">
@@ -9,5 +9,5 @@
                 >Пицца & Роллы</span
             >
         </div>
-    </div>
+    </router-link>
 </template>

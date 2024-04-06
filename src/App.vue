@@ -9,13 +9,10 @@ import HeaderDrawer from './components/HeaderDrawer.vue';
 import Drawer from './components/Drawer.vue';
 import Cart from './components/Cart.vue';
 import CartButton from './components/UI/CartButton.vue';
-import Popup from '@/components/Popup.vue';
-
-import Home from './pages/Home.vue';
-import HomeSkeleton from './pages/HomeSkeleton.vue';
+import Popup from '@/components/UI/Popup.vue';
+import Authorization from '@/components/Authorization.vue';
 
 import { useProductsStore } from './stores/ProductsStore';
-import Authorization from '@/components/Authorization.vue';
 
 const productsStore = useProductsStore();
 
@@ -89,11 +86,11 @@ onMounted(() => {
 </script>
 
 <template>
-    <Transition>
+    <Transition name="cart-btn">
         <CartButton @click="openCart" v-if="isMobile && productsStore.cartItems.length > 0" />
     </Transition>
 
-    <Transition>
+    <Transition name="popup">
         <Popup v-if="!isMobile && popupIsOpen" :close-popup="closePopup">
             <Authorization />
         </Popup>
@@ -113,14 +110,7 @@ onMounted(() => {
 
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
-            <Suspense>
-                <template #default>
-                    <Home />
-                </template>
-                <template #fallback>
-                    <HomeSkeleton />
-                </template>
-            </Suspense>
+            <router-view></router-view>
         </main>
     </Wrapper>
 
@@ -150,13 +140,24 @@ onMounted(() => {
     animation: bgAnimate 2s linear infinite;
 }
 
-.v-enter-active,
-.v-leave-active {
+.cart-btn-enter-active,
+.cart-btn-leave-active {
+    transition: all 0.3s ease;
+}
+
+.cart-btn-enter-from,
+.cart-btn-leave-to {
+    transform: scale(90%);
+    opacity: 0;
+}
+
+.popup-enter-active,
+.popup-leave-active {
     transition: opacity 0.3s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
+.popup-enter-from,
+.popup-leave-to {
     opacity: 0;
 }
 </style>
