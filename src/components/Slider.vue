@@ -31,11 +31,11 @@ const sliderOptions = {
         },
         420: {
             perPage: 1,
-            padding: { left: 5, right: 60 },
+            padding: { left: 5, right: 30 },
         },
     },
     autoplay: true,
-    interval: 5000,
+    interval: 8000,
 };
 
 defineProps({
@@ -87,7 +87,7 @@ defineProps({
 <style>
 .splide__progress {
     margin: 0 auto;
-    width: 50%;
+    width: 20%;
 }
 
 .splide__arrow {
@@ -112,6 +112,7 @@ defineProps({
 .splide__arrow--next {
     right: 0;
 }
+
 .splide__arrow--prev {
     left: 0;
 }
