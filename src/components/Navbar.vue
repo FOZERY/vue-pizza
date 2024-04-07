@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 
 import Button from './UI/Button.vue';
+import NavLink from '@/components/NavLink.vue';
 
 const handleScroll = (nav, navOffset) => {
     if (window.scrollY > navOffset) {
@@ -28,69 +29,14 @@ onMounted(() => {
     <nav class="nav sticky top-0 py-4 z-10 overflow-x-auto flex-none">
         <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-5 sm:mx-auto flex justify-between items-center">
             <ul class="flex gap-3 sm:gap-5 font-base sm:font-medium">
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <router-link
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        to="/#pizzas"
-                    >
-                        Пиццы
-                    </router-link>
-                    <!--                    <a-->
-                    <!--                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"-->
-                    <!--                        href="#pizzas"-->
-                    <!--                        >Пиццы</a-->
-                    <!--                    >-->
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#rolls"
-                        >Роллы</a
-                    >
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#sushi"
-                        >Суши</a
-                    >
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#combo"
-                        >Комбо</a
-                    >
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#snacks"
-                        >Закуски</a
-                    >
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <a
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#deserts"
-                        >Десерты</a
-                    >
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <router-link
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        href="#drinks"
-                        to="/"
-                        >Напитки
-                    </router-link>
-                </li>
-                <li class="cursor-pointer hover:text-red-700 transition duration-300">
-                    <router-link
-                        class="bg-slate-200 px-2 py-1 rounded-xl sm:bg-transparent sm:p-0"
-                        to="/stocks"
-                        >Акции
-                    </router-link>
-                </li>
+                <NavLink :to="'/'">Пиццы</NavLink>
+                <NavLink :to="'/'">Роллы</NavLink>
+                <NavLink :to="'/'">Суши</NavLink>
+                <NavLink :to="'/'">Комбо</NavLink>
+                <NavLink :to="'/'">Закуски</NavLink>
+                <NavLink :to="'/'">Десерты</NavLink>
+                <NavLink :to="'/'">Напитки</NavLink>
+                <NavLink :to="'/stocks'">Акции</NavLink>
             </ul>
             <Button
                 @click="openCart"
