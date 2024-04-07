@@ -1,16 +1,14 @@
-import App from '@/App.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import Main from '@/pages/Main.vue';
-import Stocks from '@/pages/Stocks.vue';
 
 const routes = [
     {
         path: '/',
-        component: Main,
+        component: () => import('@/pages/Main.vue'),
     },
+
     {
         path: '/stocks',
-        component: Stocks,
+        component: () => import('@/pages/Stocks.vue'),
     },
 ];
 
