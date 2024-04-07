@@ -52,7 +52,7 @@ defineProps({
                     :name="item.name"
                     :price="item.price"
                     :imageUrl="item.imageUrl"
-                    :section="item.section.eng"
+                    :section="item.type_name"
                 />
             </SplideSlide>
         </SplideTrack>
