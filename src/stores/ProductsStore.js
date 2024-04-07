@@ -7,28 +7,52 @@ export const useProductsStore = defineStore('productsStore', () => {
     const items = ref([]);
     const sections = reactive({});
     const sliderItems = ref([]);
+    const types = ref([]);
 
     const fetchItems = async () => {
         try {
+            if (items.value.length > 0) return;
             const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
 
             items.value = data;
 
-            console.log(data);
-            data.forEach((item) => {
-                if (!sections[item.section.eng]) {
-                    sections[item.section.eng] = {
-                        sectionTitle: item.section.ru,
-                        items: [],
-                    };
-                }
-                sections[item.section.eng]['items'].push(item);
-            });
+            await fetchTypes();
+
+            sortBySections(items.value);
 
             console.log(sections);
+
+            console.log(data);
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const fetchTypes = async () => {
+        try {
+            if (types.value.length > 0) return;
+            const { data } = await axios.get('https://868534f3682258a9.mokky.dev/products_slider');
+
+            types.value = data;
+
+            data.forEach((type) => {
+                if (!sections[type.type_name]) {
+                    sections[type.type_name] = {
+                        sectionTitle: type.type_name_ru,
+                        items: [],
+                    };
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    //TODO
+    const sortBySections = (items) => {
+        items.forEach((item) => {
+            if (item.type_name in sections) sections[item.type_name]['items'].push(item); // убрать условие?
+        });
     };
 
     const addToSlide = () => {
@@ -96,12 +120,15 @@ export const useProductsStore = defineStore('productsStore', () => {
 
     return {
         items,
+        types,
         sections,
         sliderItems,
         cartItems,
         totalPrice,
         totalItems,
         fetchItems,
+        fetchTypes,
+        sortBySections,
         addToSlide,
         addToCart,
         incrementQuantity,

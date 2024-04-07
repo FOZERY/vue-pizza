@@ -20,7 +20,7 @@ const productsStore = useProductsStore();
             :description="item.description"
             :price="item.price"
             :imageUrl="item.imageUrl"
-            :section="item.section.eng"
+            :section="item.type_name"
             :addToCart="() => productsStore.addToCart(item)"
         />
     </div>

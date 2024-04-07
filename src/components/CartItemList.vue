@@ -21,6 +21,7 @@ watch(
         <CartItem
             v-for="item in productsStore.cartItems"
             :key="item.id"
+            :itemId="item.id"
             :name="item.name"
             :description="item.description"
             :price="item.price"
