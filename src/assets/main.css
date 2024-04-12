@@ -21,3 +21,10 @@ body {
     background-color: #f1f7ed;
     font-family: 'Inter', Verdana, Arial, Helvetica, sans-serif;
 }
+
+.noScroll {
+    touch-action: none;
+    -ms-touch-action: none;
+    height: 100%;
+    overflow: hidden;
+}

@@ -1,71 +1,138 @@
 <script setup>
-import { inject } from 'vue';
-
 import CartItemList from './CartItemList.vue';
 import Button from './UI/Button.vue';
+import Drawer from '@/components/Drawer.vue';
 
-import { useProductsStore } from '@/stores/ProductsStore';
+import { useCartStore } from '@/stores/cartStore.js';
+import { useRootStore } from '@/stores/rootStore.js';
 
-const productsStore = useProductsStore();
+const cartStore = useCartStore();
+const rootStore = useRootStore();
 
-const { closeCart } = inject('cart');
+defineProps({
+    isOpen: {
+        type: Boolean,
+        default: false,
+    },
+});
+
+const emit = defineEmits(['update:isOpen']);
+
+const closeCart = () => {
+    emit('update:isOpen', false);
+};
 </script>
 
 <template>
-    <div
-        class="inner cart flex flex-col fixed h-full top-0 right-0 w-full sm:w-96 z-40 opacity-100 p-6 overflow-y-auto"
-    >
-        <div class="cart__header flex items-center gap-2 pb-4 mb-4 border-b border-stone-200">
-            <svg
-                @click="closeCart"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="hidden sm:block hover:-translate-x-1 hover:fill-red-500 transition duration-300 cursor-pointer"
-                viewBox="0 0 16 16"
+    <Transition :duration="rootStore.isMobile ? 0 : 400" name="cart">
+        <Drawer v-if="isOpen" @closeCart="closeCart" class="outer">
+            <div
+                class="inner cart flex flex-col fixed h-dvh top-0 right-0 w-full sm:w-96 z-40 opacity-100 p-6 overflow-y-auto"
             >
-                <path
-                    fill-rule="evenodd"
-                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
-                />
-            </svg>
-            <svg
-                @click="closeCart"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="block sm:hidden hover:-translate-x-1 hover:fill-red-500 transition duration-300 cursor-pointer"
-                viewBox="0 0 16 16"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-                />
-            </svg>
-            <h2 class="text-2xl font-medium">Корзина</h2>
-        </div>
-        <CartItemList></CartItemList>
+                <div
+                    class="cart__header flex items-center gap-2 pb-4 mb-4 border-b border-stone-200"
+                >
+                    <svg
+                        @click="closeCart"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        class="hidden sm:block hover:-translate-x-1 hover:fill-red-500 transition duration-300 cursor-pointer"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
+                        />
+                    </svg>
+                    <svg
+                        @click="closeCart"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        class="block sm:hidden hover:-translate-x-1 hover:fill-red-500 transition duration-300 cursor-pointer"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                        />
+                    </svg>
+                    <h2 class="text-2xl font-medium">Корзина</h2>
+                </div>
+                <CartItemList></CartItemList>
 
-        <div class="cart__footer border-t pt-3 flex flex-col">
-            <div class="">
-                <span class="font-medium">Количество: {{ productsStore.totalItems }}</span>
-            </div>
-            <div class="flex justify-between mb-3">
-                <span class="font-medium">Сумма заказа</span>
-                <span class="font-medium">{{ productsStore.totalPrice }} ₽</span>
-            </div>
+                <div class="cart__footer border-t pt-3 flex flex-col">
+                    <div class="">
+                        <span class="font-medium">Количество: {{ cartStore.totalItems }}</span>
+                    </div>
+                    <div class="flex justify-between mb-3">
+                        <span class="font-medium">Сумма заказа</span>
+                        <span class="font-medium">{{ cartStore.totalPrice }} ₽</span>
+                    </div>
 
-            <Button class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300"
-                >Оформить заказ
-            </Button>
-        </div>
-    </div>
+                    <router-link to="/checkout">
+                        <Button
+                            @click="closeCart"
+                            class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300 w-full"
+                            >Оформить заказ
+                        </Button>
+                    </router-link>
+                </div>
+            </div>
+        </Drawer>
+    </Transition>
 </template>
 
 <style scoped>
 .cart {
     background-color: #f1f7ed;
+}
+
+.cart-enter-active .outer,
+.cart-leave-active .outer {
+    transition: opacity 0s ease;
+}
+
+.cart-enter-from .outer,
+.cart-leave-to .outer {
+    opacity: 0;
+}
+
+.cart-enter-active .inner,
+.cart-leave-active .inner {
+    transition: transform 0s ease-in-out;
+}
+
+.cart-enter-from .inner,
+.cart-leave-to .inner {
+    transform: translateX(0px);
+}
+
+@media (min-width: 640px) {
+    .cart-enter-active .outer,
+    .cart-leave-active .outer {
+        transition: opacity 0.4s ease;
+    }
+
+    .cart-enter-from .outer,
+    .cart-leave-to .outer {
+        opacity: 0;
+    }
+
+    .cart-enter-active .inner,
+    .cart-leave-active .inner {
+        transition:
+            opacity 0.4s ease-in,
+            transform 0.4s ease-in-out;
+    }
+
+    .cart-enter-from .inner,
+    .cart-leave-to .inner {
+        transform: translateX(300px);
+        opacity: 0;
+    }
 }
 </style>

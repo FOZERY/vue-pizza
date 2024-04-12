@@ -1,8 +1,7 @@
 <script setup>
 const props = defineProps({
-    to: String,
+    to: [String, Object],
 });
-console.log(`to: ${props.to}`);
 </script>
 
 <template>

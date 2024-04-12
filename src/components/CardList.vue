@@ -4,14 +4,10 @@ import Card from './Card.vue';
 const props = defineProps({
     items: Array,
 });
-
-import { useProductsStore } from '@/stores/ProductsStore';
-
-const productsStore = useProductsStore();
 </script>
 
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-c ols-3 xl:grid-cols-4 gap-6">
         <Card
             v-for="item in items"
             :key="item.id"
@@ -21,7 +17,6 @@ const productsStore = useProductsStore();
             :price="item.price"
             :imageUrl="item.imageUrl"
             :section="item.type_name"
-            :addToCart="() => productsStore.addToCart(item)"
         />
     </div>
 </template>

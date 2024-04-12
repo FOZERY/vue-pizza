@@ -2,13 +2,25 @@
 import Wrapper from './Utility/Wrapper.vue';
 
 defineProps({
-    headerBurgerClick: Function,
+    isShow: {
+        type: Boolean,
+        default: false,
+    },
 });
+
+const emit = defineEmits(['update:isShow']);
+
+const closeHeaderDrawer = () => {
+    emit('update:isShow', false);
+};
 </script>
 
 <template>
-    <div class="fixed top-0 left-0 bg-stone-800 w-full h-full z-20">
-        <div class="flex h-full flex-col gap-5">
+    <div
+        v-if="isShow"
+        class="h-lvh fixed top-0 left-0 right-0 bottom-0 bg-stone-800 w-full z-20 flex flex-col"
+    >
+        <div class="flex flex-col gap-5 h-lvh">
             <div>
                 <Wrapper>
                     <div class="flex justify-between py-4 items-center">
@@ -26,7 +38,7 @@ defineProps({
                             </div>
                         </div>
                         <div class="header__nav-btn md:hidden">
-                            <button @click="headerBurgerClick" class="nav-icon-btn">
+                            <button @click="closeHeaderDrawer" class="nav-icon-btn">
                                 <div class="nav-icon nav-icon--active" id="nav-icon"></div>
                             </button>
                         </div>

@@ -1,12 +1,11 @@
 <script setup>
 defineProps({
+    itemId: Number,
     name: String,
     description: String,
     price: Number,
     imageUrl: String,
     quantity: Number,
-    incrementQuantity: Function,
-    decrementQuantity: Function,
 });
 </script>
 
@@ -29,7 +28,7 @@ defineProps({
                 class="flex bg-slate-200 rounded-3xl items-center justify-between text-stone-500 px-2 gap-3"
             >
                 <svg
-                    @click="decrementQuantity"
+                    @click="$emit('decrementQuantity')"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
@@ -41,7 +40,7 @@ defineProps({
                 </svg>
                 <span class="text-sm select-none">{{ quantity }}</span>
                 <svg
-                    @click="incrementQuantity"
+                    @click="$emit('incrementQuantity')"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"

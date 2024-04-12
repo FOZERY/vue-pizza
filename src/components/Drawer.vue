@@ -1,13 +1,12 @@
 <script setup>
-defineProps({
-    closeDrawer: Function,
-});
+defineEmits(['closeCart']);
 </script>
 
 <template>
     <div
-        class="outer fixed top-0 left-0 bg-black h-full w-full w-hidden opacity-70 z-20"
-        @click="closeDrawer"
-    ></div>
-    <slot></slot>
+        @click.self="$emit('closeCart')"
+        class="outer fixed top-0 left-0 right-0 bottom-0 bg-black/70 h-lvh w-full w-hidden z-20"
+    >
+        <slot></slot>
+    </div>
 </template>

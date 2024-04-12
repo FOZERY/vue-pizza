@@ -1,112 +1,64 @@
 <script setup>
-import { watch, ref, provide, onMounted } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 
 import Wrapper from './components/Utility/Wrapper.vue';
 import Header from './components/Header.vue';
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import HeaderDrawer from './components/HeaderDrawer.vue';
-import Drawer from './components/Drawer.vue';
 import Cart from './components/Cart.vue';
 import CartButton from './components/UI/CartButton.vue';
 import Popup from '@/components/UI/Popup.vue';
 import Authorization from '@/components/Authorization.vue';
 
-import { useProductsStore } from './stores/ProductsStore';
+import { usePopup } from '@/composables/usePopup.js';
+import { useCart } from '@/composables/useCart.js';
+import { useHeaderDrawer } from '@/composables/useHeaderDrawer.js';
 
-const productsStore = useProductsStore();
+import { useRootStore } from '@/stores/rootStore.js';
+import { useCartStore } from '@/stores/cartStore.js';
 
-const isMobile = ref(false);
+const cartStore = useCartStore();
+const rootStore = useRootStore();
+
+const { showPopup, popupIsOpen } = usePopup();
+const { showCart, cartIsOpen } = useCart();
+const { showHeaderDrawer, headerDrawerIsOpen } = useHeaderDrawer();
 
 const resizeWindowEvent = () => {
-    window.innerWidth >= 768 ? (isMobile.value = false) : (isMobile.value = true);
+    window.innerWidth >= 768 ? (rootStore.isMobile = false) : (rootStore.isMobile = true);
 };
-
-const popupIsOpen = ref(false);
-
-const openPopup = () => {
-    drawerIsOpen.value = true;
-    popupIsOpen.value = true;
-};
-const closePopup = () => {
-    drawerIsOpen.value = false;
-    popupIsOpen.value = false;
-};
-
-const cartIsOpen = ref(false);
-
-// drawer
-const drawerIsOpen = ref(false);
-
-const openCart = () => {
-    drawerIsOpen.value = true;
-    cartIsOpen.value = true;
-};
-const closeCart = () => {
-    drawerIsOpen.value = false;
-    cartIsOpen.value = false;
-};
-
-// header drawer
-const headerDrawerIsOpen = ref(false);
-
-const openHeaderDrawer = () => {
-    headerDrawerIsOpen.value = true;
-};
-
-const closeHeaderDrawer = () => {
-    headerDrawerIsOpen.value = false;
-};
-
-const headerBurgerClick = () => {
-    headerDrawerIsOpen.value ? closeHeaderDrawer() : openHeaderDrawer();
-};
-
-// form validate
-
-provide('cart', { closeCart });
-provide('isMobile', isMobile);
-
-watch(headerDrawerIsOpen, () => {
-    headerDrawerIsOpen.value
-        ? (document.body.style.overflowY = 'hidden')
-        : (document.body.style.overflowY = 'auto');
-});
-
-watch(drawerIsOpen, () => {
-    drawerIsOpen.value
-        ? (document.body.style.overflowY = 'hidden')
-        : (document.body.style.overflowY = 'auto');
-});
 
 onMounted(() => {
     window.addEventListener('resize', resizeWindowEvent);
     resizeWindowEvent();
 });
+
+watch(
+    cartStore.cartItems,
+    () => {
+        localStorage.setItem('cartItems', JSON.stringify(cartStore.cartItems));
+    },
+    { deep: true }
+);
 </script>
 
 <template>
     <Transition name="cart-btn">
-        <CartButton @click="openCart" v-if="isMobile && productsStore.cartItems.length > 0" />
+        <CartButton @click="showCart" v-if="rootStore.isMobile && cartStore.cartItems.length > 0" />
     </Transition>
 
-    <Transition name="popup">
-        <Popup v-if="!isMobile && popupIsOpen" :close-popup="closePopup">
-            <Authorization />
-        </Popup>
-    </Transition>
+    <Popup v-if="!rootStore.isMobile" v-model:show="popupIsOpen">
+        <Authorization />
+    </Popup>
 
-    <Drawer v-if="cartIsOpen" :close-drawer="closeCart">
-        <Cart />
-    </Drawer>
+    <Cart v-model:isOpen="cartIsOpen" />
 
-    <HeaderDrawer v-if="headerDrawerIsOpen" :header-burger-click="headerBurgerClick" />
+    <HeaderDrawer v-model:isShow="headerDrawerIsOpen" />
 
-    <Wrapper>
-        <Header :open-popup="openPopup" :header-burger-click="headerBurgerClick" />
-    </Wrapper>
+    <Header @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
 
-    <Navbar :open-cart="openCart" />
+    <Navbar @open-cart="showCart" />
 
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
@@ -138,26 +90,5 @@ onMounted(() => {
     );
     background-size: 200% 100%;
     animation: bgAnimate 2s linear infinite;
-}
-
-.cart-btn-enter-active,
-.cart-btn-leave-active {
-    transition: all 0.3s ease;
-}
-
-.cart-btn-enter-from,
-.cart-btn-leave-to {
-    transform: scale(90%);
-    opacity: 0;
-}
-
-.popup-enter-active,
-.popup-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.popup-enter-from,
-.popup-leave-to {
-    opacity: 0;
 }
 </style>

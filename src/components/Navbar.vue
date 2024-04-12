@@ -12,10 +12,6 @@ const handleScroll = (nav, navOffset) => {
     }
 };
 
-defineProps({
-    openCart: Function,
-});
-
 onMounted(() => {
     const nav = document.querySelector('.nav');
     const navOffset = nav.offsetTop;
@@ -26,20 +22,20 @@ onMounted(() => {
 </script>
 
 <template>
-    <nav class="nav sticky top-0 py-4 z-10 overflow-x-auto flex-none">
+    <nav id="nav" class="nav sticky top-0 py-4 z-10 overflow-x-auto flex-none">
         <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-5 sm:mx-auto flex justify-between items-center">
             <ul class="flex gap-3 sm:gap-5 font-base sm:font-medium">
-                <NavLink :to="'/'">Пиццы</NavLink>
-                <NavLink :to="'/'">Роллы</NavLink>
-                <NavLink :to="'/'">Суши</NavLink>
-                <NavLink :to="'/'">Комбо</NavLink>
-                <NavLink :to="'/'">Закуски</NavLink>
-                <NavLink :to="'/'">Десерты</NavLink>
-                <NavLink :to="'/'">Напитки</NavLink>
+                <NavLink :to="{ path: '/', hash: '#pizzas' }">Пиццы</NavLink>
+                <NavLink :to="{ path: '/', hash: '#rolls' }">Роллы</NavLink>
+                <NavLink :to="{ path: '/', hash: '#sushi' }">Суши</NavLink>
+                <NavLink :to="{ path: '/', hash: '#combos' }">Комбо</NavLink>
+                <NavLink :to="{ path: '/', hash: '#snacks' }">Закуски</NavLink>
+                <NavLink :to="{ path: '/', hash: '#deserts' }">Десерты</NavLink>
+                <NavLink :to="{ path: '/', hash: '#drinks' }">Напитки</NavLink>
                 <NavLink :to="'/stocks'">Акции</NavLink>
             </ul>
             <Button
-                @click="openCart"
+                @click="$emit('openCart')"
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
                 >Корзина
             </Button>

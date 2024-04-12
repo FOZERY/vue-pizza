@@ -1,25 +1,15 @@
 <script setup>
-import { watch } from 'vue';
-
 import CartItem from './CartItem.vue';
 
-import { useProductsStore } from '@/stores/ProductsStore';
+import { useCartStore } from '@/stores/cartStore.js';
 
-const productsStore = useProductsStore();
-
-watch(
-    productsStore.cartItems,
-    () => {
-        console.log(productsStore.cartItems);
-    },
-    { deep: true }
-);
+const cartStore = useCartStore();
 </script>
 
 <template>
     <div class="flex flex-col flex-1 gap-5">
         <CartItem
-            v-for="item in productsStore.cartItems"
+            v-for="item in cartStore.cartItems"
             :key="item.id"
             :itemId="item.id"
             :name="item.name"
@@ -27,8 +17,8 @@ watch(
             :price="item.price"
             :imageUrl="item.imageUrl"
             :quantity="item.quantity"
-            :incrementQuantity="() => productsStore.incrementQuantity(item)"
-            :decrementQuantity="() => productsStore.decrementQuantity(item)"
+            @incrementQuantity="() => cartStore.incrementQuantity(item)"
+            @decrementQuantity="() => cartStore.decrementQuantity(item)"
         />
     </div>
 </template>

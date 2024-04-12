@@ -1,14 +1,13 @@
 <script setup>
 import Slider from './Slider.vue';
 import MenuSection from '@/components/MenuSection.vue';
-
-import { useProductsStore } from '@/stores/ProductsStore.js';
 import SectionTitle from '@/components/UI/SectionTitle.vue';
+
+import { useProductsStore } from '@/stores/productsStore.js';
 
 const productsStore = useProductsStore();
 
 await productsStore.fetchItems();
-productsStore.addToSlide();
 </script>
 
 <template>
