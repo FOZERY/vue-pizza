@@ -19,7 +19,7 @@ watch(isValid, () => {
     <h2 class="text-2xl font-medium mb-5">Вход на сайт</h2>
 
     <form class="flex flex-col flex-1 w-96" action="" method="post">
-        <label class="text-slate-500 mb-2" for="">Введите номер телефона</label>
+        <label class="text-slate-500 mb-3" for="">Введите номер телефона</label>
         <input
             v-model="inputNumber"
             v-mask="'+7 (###) ###-##-##'"
@@ -33,7 +33,7 @@ watch(isValid, () => {
             id="submitRegBtn"
             type="submit"
             value="Отправить смс"
-            class="disabled:cursor-default cursor-pointer disabled:bg-stone-500 bg-red-500 text-white rounded-xl py-2 mt-7"
+            class="disabled:cursor-default cursor-pointer disabled:bg-stone-500 bg-red-500 text-white rounded-xl py-2 mt-5"
         />
     </form>
 </template>
