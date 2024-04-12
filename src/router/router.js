@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Main from '@/pages/Main.vue';
 import CardPopup from '@/components/CardPopup.vue';
+import { loadLayoutMiddleware } from '@/router/middleware/loadLayoutMiddleware.js';
+import { RouteNames } from '@/router/routeNames.js';
+import { AppLayoutNames } from '@/layouts/layoutsNames.js';
 
 const routes = [
     {
         path: '/',
-        component: Main,
+        component: () => import('@/pages/PageMain.vue'),
+        name: RouteNames.main,
         children: [
             {
                 path: 'product/:id',
@@ -18,11 +21,14 @@ const routes = [
     },
     {
         path: '/stocks',
-        component: () => import('@/pages/Stocks.vue'),
+        component: () => import('@/pages/PageStocks.vue'),
     },
     {
         path: '/checkout',
-        component: () => import('@/pages/CheckoutCart.vue'),
+        component: () => import('@/pages/PageCheckout.vue'),
+        meta: {
+            layout: AppLayoutNames.checkout,
+        },
     },
     {
         path: '/:pathName(.*)',
@@ -38,7 +44,7 @@ const router = createRouter({
         if (to.hash) {
             return {
                 el: to.hash,
-                top: 70,
+                top: 75,
                 behavior: 'smooth',
             };
         } else {
@@ -48,5 +54,7 @@ const router = createRouter({
         }
     },
 });
+
+router.beforeEach(loadLayoutMiddleware);
 
 export default router;
