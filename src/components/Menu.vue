@@ -11,6 +11,10 @@ await productsStore.fetchItems();
 </script>
 
 <template>
+    <teleport to="body">
+        <router-view />
+    </teleport>
+
     <section class="mb-5">
         <SectionTitle>Новинки</SectionTitle>
 

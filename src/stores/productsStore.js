@@ -1,91 +1,83 @@
 import axios from 'axios';
-
 import { defineStore } from 'pinia';
-import { computed, reactive, ref } from 'vue';
+import router from '@/router/router.js';
 
-export const useProductsStore = defineStore('productsStore', () => {
-    const items = ref([]);
-    const sections = reactive({});
-    const sliderItems = ref([]);
-    const types = ref([]);
-    const item = reactive({});
+export const useProductsStore = defineStore('productsStoreTest', {
+    state: () => ({
+        items: [],
+        sections: {},
+        sliderItems: [],
+        types: [],
+        item: {},
+        isLoading: false,
+        isItemLoading: false,
+    }),
 
-    const fetchItem = async (itemId) => {
-        try {
-            const { data } = await axios.get(
-                `https://868534f3682258a9.mokky.dev/products/${itemId}`
-            );
-            item.value = data;
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    getters: {
+        getAllItems() {
+            return this.items;
+        },
+        getItemById() {
+            return (id) => this.items.find((item) => item.id === id);
+        },
+    },
 
-    const fetchItems = async () => {
-        try {
-            if (items.value.length > 0) return;
-            const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
-            items.value = data;
-            await fetchTypes();
+    actions: {
+        async fetchItems() {
+            this.isLoading = true;
+            try {
+                console.log(this.items.length);
+                if (this.items.length > 0) return;
+                const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
+                this.items = data;
+                await this.fetchTypes();
 
-            sortBySections(items.value);
+                this.sortBySections(this.items);
 
-            addToSlide();
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    const fetchTypes = async () => {
-        try {
-            if (types.value.length > 0) return;
-            const { data } = await axios.get('https://868534f3682258a9.mokky.dev/products_slider');
-
-            types.value = data;
-
-            data.forEach((type) => {
-                if (!sections[type.type_name]) {
-                    sections[type.type_name] = {
-                        sectionTitle: type.type_name_ru,
-                        items: [],
-                    };
-                }
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    //TODO
-    const sortBySections = (items) => {
-        items.forEach((item) => {
-            sections[item.type_name]['items'].push(item); // убрать условие?
-        });
-    };
-
-    const addToSlide = () => {
-        items.value.forEach((item) => {
-            if (item.isInSlider) {
-                sliderItems.value.push({
-                    ...item,
+                this.addToSlide();
+                this.isLoading = false;
+            } catch (err) {
+                console.log(err);
+                const errorCode = err.response.data.statusCode;
+                router.push({
+                    path: `/error/${errorCode}`,
                 });
             }
-        });
-    };
+        },
+        async fetchTypes() {
+            try {
+                if (this.types.length > 0) return;
+                const { data } = await axios.get(
+                    'https://868534f3682258a9.mokky.dev/products_slider'
+                );
 
-    const getItemById = computed(() => items.value.find((item) => item.id === 3));
+                this.types = data;
 
-    return {
-        items,
-        item,
-        types,
-        sections,
-        sliderItems,
-        getItemById,
-        fetchItems,
-        fetchItem,
-        fetchTypes,
-        sortBySections,
-        addToSlide,
-    };
+                data.forEach((type) => {
+                    if (!this.sections[type.type_name]) {
+                        this.sections[type.type_name] = {
+                            sectionTitle: type.type_name_ru,
+                            items: [],
+                        };
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        sortBySections(items) {
+            items.forEach((item) => {
+                this.sections[item.type_name]['items'].push(item); // убрать условие?
+            });
+        },
+        addToSlide() {
+            this.items.forEach((item) => {
+                if (item.isInSlider) {
+                    this.sliderItems.push({
+                        ...item,
+                    });
+                }
+            });
+        },
+    },
 });

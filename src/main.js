@@ -8,10 +8,11 @@ import { mask } from 'vue-the-mask';
 import App from './App.vue';
 import router from '@/router/router.js';
 
+const pinia = createPinia();
 const app = createApp(App);
 
 app.directive('mask', mask);
 
-app.use(createPinia());
+app.use(pinia);
 app.use(router);
 app.mount('#app');
