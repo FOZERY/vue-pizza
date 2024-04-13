@@ -34,6 +34,13 @@ const routes = [
         path: '/:pathName(.*)',
         redirect: '/',
     },
+    {
+        path: '/error/:errorCode',
+        component: () => import('@/pages/PageError.vue'),
+        meta: {
+            layout: AppLayoutNames.error,
+        },
+    },
 ];
 
 const router = createRouter({
