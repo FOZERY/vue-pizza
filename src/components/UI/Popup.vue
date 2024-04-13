@@ -17,10 +17,9 @@ const emit = defineEmits(['update:show']);
 const router = useRouter();
 
 const closePopup = () => {
+    emit('update:show', false);
     if (props.withRouting) {
         router.push('/');
-    } else {
-        emit('update:show', false);
     }
 };
 </script>
