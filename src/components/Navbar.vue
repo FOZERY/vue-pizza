@@ -1,8 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
-
-import Button from './UI/Button.vue';
 import NavLink from '@/components/NavLink.vue';
+import ButtonMain from '@/components/UI/ButtonMain.vue';
 
 const handleScroll = (nav, navOffset) => {
     if (window.scrollY > navOffset) {
@@ -34,11 +33,11 @@ onMounted(() => {
                 <NavLink :to="{ path: '/', hash: '#drinks' }">Напитки</NavLink>
                 <NavLink :to="'/stocks'">Акции</NavLink>
             </ul>
-            <Button
+            <ButtonMain
                 @click="$emit('openCart')"
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
                 >Корзина
-            </Button>
+            </ButtonMain>
         </div>
     </nav>
 </template>

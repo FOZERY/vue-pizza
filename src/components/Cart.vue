@@ -1,6 +1,6 @@
 <script setup>
 import CartItemList from './CartItemList.vue';
-import Button from './UI/Button.vue';
+import ButtonMain from '@/components/UI/ButtonMain.vue';
 import Drawer from '@/components/Drawer.vue';
 
 import { useCartStore } from '@/stores/cartStore.js';
@@ -74,11 +74,11 @@ const closeCart = () => {
                     </div>
 
                     <router-link to="/checkout">
-                        <Button
+                        <ButtonMain
                             @click="closeCart"
                             class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300 w-full"
                             >Оформить заказ
-                        </Button>
+                        </ButtonMain>
                     </router-link>
                 </div>
             </div>
@@ -131,7 +131,7 @@ const closeCart = () => {
 
     .cart-enter-from .inner,
     .cart-leave-to .inner {
-        transform: translateX(300px);
+        transform: translateX(400px);
         opacity: 0;
     }
 }

@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted, ref, inject } from 'vue';
 import CardList from './CardList.vue';
 import SectionTitle from '@/components/UI/SectionTitle.vue';
 

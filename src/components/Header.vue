@@ -1,7 +1,10 @@
 <script setup>
-import Button from './UI/Button.vue';
+import ButtonMain from '@/components/UI/ButtonMain.vue';
 import Logo from './UI/Logo.vue';
 import Wrapper from '@/components/Utility/Wrapper.vue';
+import { useRootStore } from '@/stores/rootStore.js';
+
+const rootStore = useRootStore();
 </script>
 
 <template>
@@ -35,11 +38,13 @@ import Wrapper from '@/components/Utility/Wrapper.vue';
                 </div>
             </div>
             <div class="header__right">
-                <Button
+                <ButtonMain
+                    v-if="!rootStore.isAuth"
                     @click="$emit('showPopup')"
                     class="hidden md:block bg-slate-100 text-slate-500 hover:text-black hover:bg-slate-200 active:bg-slate-300"
                     >Войти
-                </Button>
+                </ButtonMain>
+                <div class="hidden md:block" v-else>Профиль</div>
 
                 <div class="header__nav-btn md:hidden">
                     <button @click="$emit('headerBurgerClick')" class="nav-icon-btn">
