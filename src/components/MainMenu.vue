@@ -21,7 +21,24 @@ await productsStore.fetchItems();
         <MainSlider :sliderItems="productsStore.sliderItems" />
     </section>
 
-    <MenuSection
+    <div class="flex sm:justify-end items-center gap-5 mb-3">
+        <div class="relative w-60">
+            <img
+                class="absolute w-4 h-4 translate-y-2 translate-x-2"
+                src="/special-icons/magnifier.svg"
+                alt=""
+            />
+
+            <input
+                @click=""
+                placeholder="Поиск..."
+                class="rounded-lg py-1 pl-7 text-base shadow-sm outline-none"
+                type="text"
+            />
+        </div>
+    </div>
+
+    <MainMenuSection
         v-for="(sectionObj, section) in productsStore.sections"
         :key="section"
         :section="section"
