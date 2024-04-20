@@ -1,6 +1,6 @@
 <script setup>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
+import TheHeader from '@/components/TheHeader.vue';
+import TheFooter from '@/components/TheFooter.vue';
 
 import { usePopup } from '@/composables/usePopup.js';
 import { useHeaderDrawer } from '@/composables/useHeaderDrawer.js';
@@ -14,7 +14,7 @@ const { headerDrawerIsOpen, showHeaderDrawer } = useHeaderDrawer();
 <template>
     <HeaderDrawer v-model:isShow="headerDrawerIsOpen" />
 
-    <Header @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
+    <TheHeader @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
 
     <Wrapper class="flex-1 h-full flex justify-center items-center">
         <main class="pt-3 pb-3 sm:pb-7">
@@ -22,7 +22,7 @@ const { headerDrawerIsOpen, showHeaderDrawer } = useHeaderDrawer();
         </main>
     </Wrapper>
 
-    <Footer />
+    <TheFooter />
 </template>
 
 <style scoped></style>

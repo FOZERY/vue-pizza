@@ -35,7 +35,7 @@ export const useProductsStore = defineStore('productsStoreTest', {
                 this.sortBySections(this.items);
 
                 this.addToSlide();
-                this.isLoading = false;
+                // this.isLoading = false;
             } catch (err) {
                 console.log(err);
                 const errorCode = err.response.data.statusCode;

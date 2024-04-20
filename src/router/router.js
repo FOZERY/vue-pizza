@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import CardPopup from '@/components/CardPopup.vue';
 import { loadLayoutMiddleware } from '@/router/middleware/loadLayoutMiddleware.js';
 import { RouteNames } from '@/router/routeNames.js';
 import { AppLayoutNames } from '@/layouts/layoutsNames.js';
+import ProductPopup from '@/components/ProductPopup.vue';
 
 const routes = [
     {
@@ -12,7 +12,7 @@ const routes = [
         children: [
             {
                 path: 'product/:id',
-                component: CardPopup,
+                component: ProductPopup,
                 meta: {
                     showModal: true,
                 },

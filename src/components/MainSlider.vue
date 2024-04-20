@@ -1,6 +1,6 @@
 <script setup>
-import SliderItem from './SliderItem.vue';
-import { Splide, SplideTrack, SplideSlide } from '@splidejs/vue-splide';
+import MainSliderItem from '@/components/MainSliderItem.vue';
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/vue-splide';
 
 const sliderOptions = {
     type: 'slide',
@@ -47,7 +47,7 @@ defineProps({
     <Splide :has-track="false" :options="sliderOptions" aria-label="">
         <SplideTrack class="py-5">
             <SplideSlide v-for="item in sliderItems" :key="item.id">
-                <SliderItem
+                <MainSliderItem
                     :itemId="item.id"
                     :name="item.name"
                     :price="item.price"

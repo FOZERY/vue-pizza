@@ -1,14 +1,12 @@
 <script setup>
-import { watch } from 'vue';
-
 import Wrapper from '@/components/Utility/Wrapper.vue';
-import Header from '@/components/Header.vue';
-import Navbar from '@/components/Navbar.vue';
-import Footer from '@/components/Footer.vue';
+import TheHeader from '@/components/TheHeader.vue';
+import TheNavbar from '@/components/TheNavbar.vue';
+import TheFooter from '@/components/TheFooter.vue';
+import TheCart from '@/components/TheCart.vue';
 import HeaderDrawer from '@/components/HeaderDrawer.vue';
-import Cart from '@/components/Cart.vue';
 import CartButton from '@/components/UI/CartButton.vue';
-import Popup from '@/components/UI/Popup.vue';
+import AppPopup from '@/components/UI/AppPopup.vue';
 import Authorization from '@/components/Authorization.vue';
 
 import { usePopup } from '@/composables/usePopup.js';
@@ -24,14 +22,6 @@ const rootStore = useRootStore();
 const { showPopup, popupIsOpen } = usePopup();
 const { showCart, cartIsOpen } = useCart();
 const { showHeaderDrawer, headerDrawerIsOpen } = useHeaderDrawer();
-
-watch(
-    cartStore.cartItems,
-    () => {
-        localStorage.setItem('cartItems', JSON.stringify(cartStore.cartItems));
-    },
-    { deep: true }
-);
 </script>
 
 <template>
@@ -39,17 +29,17 @@ watch(
         <CartButton @click="showCart" v-if="rootStore.isMobile && cartStore.cartItems.length > 0" />
     </Transition>
 
-    <Popup v-if="!rootStore.isMobile" v-model:show="popupIsOpen">
+    <AppPopup v-if="!rootStore.isMobile" v-model:show="popupIsOpen">
         <Authorization />
-    </Popup>
+    </AppPopup>
 
-    <Cart v-model:isOpen="cartIsOpen" />
+    <TheCart v-model:isOpen="cartIsOpen" />
 
     <HeaderDrawer v-model:isShow="headerDrawerIsOpen" />
 
-    <Header @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
+    <TheHeader @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
 
-    <Navbar @open-cart="showCart" />
+    <TheNavbar @open-cart="showCart" />
 
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
@@ -58,7 +48,7 @@ watch(
         </main>
     </Wrapper>
 
-    <Footer />
+    <TheFooter />
 </template>
 
 <style>

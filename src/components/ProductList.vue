@@ -1,14 +1,14 @@
 <script setup>
-import Card from './Card.vue';
+import ProductListItem from '@/components/ProductListItem.vue';
 
-const props = defineProps({
+defineProps({
     items: Array,
 });
 </script>
 
 <template>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-c ols-3 xl:grid-cols-4 gap-6">
-        <Card
+        <ProductListItem
             v-for="item in items"
             :key="item.id"
             :itemId="item.id"

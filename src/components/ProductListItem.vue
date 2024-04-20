@@ -1,5 +1,5 @@
 <script setup>
-import ButtonMain from '@/components/UI/ButtonMain.vue';
+import AppButton from '@/components/UI/AppButton.vue';
 import { useRootStore } from '@/stores/rootStore.js';
 
 defineProps({
@@ -34,11 +34,11 @@ const rootStore = useRootStore();
             </div>
             <div class="flex justify-between items-center">
                 <span class="hidden sm:inline font-medium">от {{ price }} ₽</span>
-                <ButtonMain
+                <AppButton
                     v-if="!isAdded"
                     class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
                     >{{ rootStore.isMobile ? `От ${price} ₽` : `Выбрать` }}
-                </ButtonMain>
+                </AppButton>
             </div>
         </div>
     </router-link>

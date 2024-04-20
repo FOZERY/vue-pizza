@@ -32,7 +32,7 @@ const closePopup = () => {
             class="fixed top-0 bottom-0 left-0 right-0 bg-black/70 h-lvh flex justify-center items-center z-20"
         >
             <div
-                class="fixed bg-white opacity-100 overflow-x-none flex flex-col p-3 py-7 sm:p-7 mx-8 sm:mx-auto rounded-2xl z-30"
+                class="fixed bg-white opacity-100 overflow-x-none flex flex-col p-5 md:p-7 mx-8 sm:mx-auto rounded-2xl z-30"
             >
                 <svg
                     @click="closePopup"

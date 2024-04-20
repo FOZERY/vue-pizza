@@ -13,7 +13,7 @@ const errorMessageMap = {
 
 <template>
     <div class="flex gap-5 flex-col justify-center items-center">
-        <div class="font-medium text-lg">{{ errorMessageMap[errorCode] }}</div>
+        <div class="font-medium text-lg">{{    errorMessageMap[errorCode] }}</div>
 
         <img class="w-56 h-56" src="/error/icons8-pizza-240.png" alt="" />
         <h2 class="font-medium text-xl">Упс... Похоже произошла ошибка</h2>

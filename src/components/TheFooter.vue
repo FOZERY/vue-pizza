@@ -1,3 +1,7 @@
+<script setup>
+const year = new Date().getFullYear();
+</script>
+
 <template>
     <footer class="bg-stone-800 py-8 mt-auto">
         <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-auto grid grid-cols-1 md:grid-cols-5 gap-5">
@@ -62,7 +66,7 @@
             </div>
             <div class="col-span-full border-t border-stone-700 py-5 text-zinc-400">
                 <span>Roblox Пицца </span>
-                <span>©&nbsp;2023</span>
+                <span>©&nbsp;{{ year }}</span>
                 <p class="text-sm mt-1">
                     Сайт студента НИУ "БелГУ" группы 12002202 Тагиева Дмитрия
                 </p>

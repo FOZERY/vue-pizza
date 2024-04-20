@@ -1,6 +1,6 @@
 <script setup>
-import CardList from './CardList.vue';
-import SectionTitle from '@/components/UI/SectionTitle.vue';
+import ProductList from '@/components/ProductList.vue';
+import TitleSection from '@/components/UI/TitleSection.vue';
 
 defineProps({
     items: Array,
@@ -11,8 +11,8 @@ defineProps({
 
 <template>
     <section :id="section" class="mb-7 scroll-mt-16 sm:scroll-mt-20">
-        <SectionTitle>{{ sectionTitle }}</SectionTitle>
+        <TitleSection>{{ sectionTitle }}</TitleSection>
 
-        <CardList :items="items" />
+        <ProductList :items="items" />
     </section>
 </template>

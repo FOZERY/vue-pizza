@@ -1,6 +1,6 @@
 <script setup>
-import CartItemList from './CartItemList.vue';
-import ButtonMain from '@/components/UI/ButtonMain.vue';
+import CartList from '@/components/CartList.vue';
+import AppButton from '@/components/UI/AppButton.vue';
 import Drawer from '@/components/Drawer.vue';
 
 import { useCartStore } from '@/stores/cartStore.js';
@@ -62,24 +62,39 @@ const closeCart = () => {
                     </svg>
                     <h2 class="text-2xl font-medium">Корзина</h2>
                 </div>
-                <CartItemList></CartItemList>
 
-                <div class="cart__footer border-t pt-3 flex flex-col">
-                    <div class="">
-                        <span class="font-medium">Количество: {{ cartStore.totalItems }}</span>
-                    </div>
-                    <div class="flex justify-between mb-3">
-                        <span class="font-medium">Сумма заказа</span>
-                        <span class="font-medium">{{ cartStore.totalPrice }} ₽</span>
-                    </div>
+                <div class="flex flex-col flex-1 gap-5" v-if="cartStore.cartItems.length > 0">
+                    <CartList />
+                    <div class="cart__footer border-t pt-3 flex flex-col mt-auto">
+                        <div class="">
+                            <span class="font-medium">Количество: {{ cartStore.totalItems }}</span>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-medium">Сумма заказа</span>
+                            <span class="font-medium">{{ cartStore.totalPrice }} ₽</span>
+                        </div>
 
-                    <router-link to="/checkout">
-                        <ButtonMain
-                            @click="closeCart"
-                            class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300 w-full"
-                            >Оформить заказ
-                        </ButtonMain>
-                    </router-link>
+                        <router-link to="/checkout">
+                            <AppButton
+                                @click="closeCart"
+                                class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300 w-full"
+                                >Оформить заказ
+                            </AppButton>
+                        </router-link>
+                    </div>
+                </div>
+                <div v-else class="flex flex-col justify-center items-center h-full">
+                    <img
+                        src="/error/looney-cursor-with-shop-basket-doing-online-shopping.png"
+                        fetchpriority="high"
+                        decoding="sync"
+                        class="w-64 sm:w-72 mb-7"
+                    />
+                    <h3 class="text-xl font-medium mb-3">Пусто!</h3>
+                    <p class="text-sm text-center">
+                        Откройте «Меню» и выберите<br />
+                        какой-нибудь продукт.
+                    </p>
                 </div>
             </div>
         </Drawer>

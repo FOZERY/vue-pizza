@@ -1,5 +1,5 @@
 <script setup>
-import CartItem from './CartItem.vue';
+import CartListItem from '@/components/CartListItem.vue';
 
 import { useCartStore } from '@/stores/cartStore.js';
 
@@ -7,8 +7,8 @@ const cartStore = useCartStore();
 </script>
 
 <template>
-    <div class="flex flex-col flex-1 gap-5">
-        <CartItem
+    <div class="">
+        <CartListItem
             v-for="item in cartStore.cartItems"
             :key="item.id"
             :itemId="item.id"

@@ -1,7 +1,7 @@
 <script setup>
-import Slider from './Slider.vue';
-import MenuSection from '@/components/MenuSection.vue';
-import SectionTitle from '@/components/UI/SectionTitle.vue';
+import MainSlider from '@/components/MainSlider.vue';
+import MainMenuSection from '@/components/MainMenuSection.vue';
+import TitleSection from '@/components/UI/TitleSection.vue';
 
 import { useProductsStore } from '@/stores/productsStore.js';
 
@@ -16,9 +16,9 @@ await productsStore.fetchItems();
     </teleport>
 
     <section class="mb-5">
-        <SectionTitle>Новинки</SectionTitle>
+        <TitleSection>Новинки</TitleSection>
 
-        <Slider :sliderItems="productsStore.sliderItems" />
+        <MainSlider :sliderItems="productsStore.sliderItems" />
     </section>
 
     <MenuSection
@@ -27,5 +27,5 @@ await productsStore.fetchItems();
         :section="section"
         :sectionTitle="sectionObj.sectionTitle"
         :items="sectionObj.items"
-    ></MenuSection>
+    ></MainMenuSection>
 </template>

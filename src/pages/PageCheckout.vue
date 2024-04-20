@@ -1,12 +1,12 @@
 <script setup>
-import CartItemList from '@/components/CartItemList.vue';
-import SectionTitle from '@/components/UI/SectionTitle.vue';
+import CartList from '@/components/CartList.vue';
+import TitleSection from '@/components/UI/TitleSection.vue';
 </script>
 
 <template>
-    <SectionTitle>Ваш заказ</SectionTitle>
+    <TitleSection>Ваш заказ</TitleSection>
     <div class="max-w-md">
-        <CartItemList />
+        <CartList />
     </div>
     <div>
         <form action="">

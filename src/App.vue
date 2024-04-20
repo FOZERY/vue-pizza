@@ -1,9 +1,11 @@
 <script setup>
 import AppLayout from '@/layouts/AppLayout.vue';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useRootStore } from '@/stores/rootStore.js';
+import { useCartStore } from '@/stores/cartStore.js';
 
 const rootStore = useRootStore();
+const cartStore = useCartStore();
 
 const resizeWindowEvent = () => {
     window.innerWidth >= 768 ? (rootStore.isMobile = false) : (rootStore.isMobile = true);
@@ -13,6 +15,14 @@ onMounted(() => {
     window.addEventListener('resize', resizeWindowEvent);
     resizeWindowEvent();
 });
+
+watch(
+    cartStore.cartItems,
+    () => {
+        localStorage.setItem('cartItems', JSON.stringify(cartStore.cartItems));
+    },
+    { deep: true }
+);
 </script>
 
 <template>

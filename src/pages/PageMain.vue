@@ -1,15 +1,16 @@
 <script setup>
-import Menu from '@/components/Menu.vue';
-import MenuSkeleton from '@/components/Skeletons/MenuSkeleton.vue';
+import MainMenu from '@/components/MainMenu.vue';
+import AppLoader from '@/components/UI/AppLoader.vue';
 </script>
 
 <template>
     <Suspense>
         <template #default>
-            <Menu />
+            <MainMenu />
         </template>
         <template #fallback>
-            <MenuSkeleton />
+            <AppLoader />
+            <!--            <MenuSkeleton />-->
         </template>
     </Suspense>
 </template>
