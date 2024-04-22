@@ -58,7 +58,7 @@ defineProps({
         </SplideTrack>
 
         <div class="splide__progress">
-            <div class="bg-red-400 splide__progress__bar" />
+            <div class="splide__progress__bar" />
         </div>
 
         <div class="splide__arrows">
@@ -88,6 +88,10 @@ defineProps({
 .splide__progress {
     margin: 0 auto;
     width: 20%;
+}
+
+.splide__progress__bar {
+    background: rgb(248 113 113);
 }
 
 .splide__arrow {
