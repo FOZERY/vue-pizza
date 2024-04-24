@@ -39,11 +39,16 @@ const { showHeaderDrawer, headerDrawerIsOpen } = useHeaderDrawer();
 
     <TheHeader @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
 
+    <Suspense>
+        <template #default>
     <TheNavbar @open-cart="showCart" />
+        </template>
+        <template #fallback>
 
+        </template>
+    </Suspense>
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
-            <!--            em??-->
             <slot />
         </main>
     </Wrapper>

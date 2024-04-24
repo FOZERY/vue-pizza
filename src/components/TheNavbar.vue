@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import NavLink from '@/components/NavLink.vue';
 import AppButton from '@/components/UI/AppButton.vue';
+import { useProductsStore } from '@/stores/productsStore.js';
 import Wrapper from '@/components/Utility/Wrapper.vue';
 
 const handleScroll = (nav, navOffset) => {
@@ -19,28 +20,29 @@ onMounted(() => {
         handleScroll(nav, navOffset);
     });
 });
+
+const productsStore = useProductsStore();
+
+await productsStore.fetchTypes();
 </script>
 
 <template>
-    <nav id="nav" class="nav sticky top-0 py-4 z-10 overflow-x-auto flex-none">
-        <div class="w-11/12 lg:w-10/12 xl:w-9/12 mx-5 sm:mx-auto flex justify-between items-center">
-            <ul class="flex gap-3 sm:gap-5 font-base sm:font-medium">
-                <NavLink :to="{ path: '/', hash: '#pizzas' }">Пиццы</NavLink>
-                <NavLink :to="{ path: '/', hash: '#rolls' }">Роллы</NavLink>
-                <NavLink :to="{ path: '/', hash: '#sushi' }">Суши</NavLink>
-                <NavLink :to="{ path: '/', hash: '#combos' }">Комбо</NavLink>
-                <NavLink :to="{ path: '/', hash: '#snacks' }">Закуски</NavLink>
-                <NavLink :to="{ path: '/', hash: '#deserts' }">Десерты</NavLink>
-                <NavLink :to="{ path: '/', hash: '#drinks' }">Напитки</NavLink>
     <nav id="nav" class="nav sticky -top-0.5 z-10 flex-none">
         <Wrapper class="flex justify-between items-center h-16">
+
             <ul class="flex py-3 items-center gap-3 sm:gap-5 font-base sm:font-medium overflow-x-auto overflow-y-none">
+                <NavLink v-for="type in productsStore.types"
+                         :to="{path:'/', hash: `#${type.type_name}`}"
+                         :key="type.id">{{ type.type_name_ru }}
+                </NavLink>
+
                 <NavLink :to="'/stocks'">Акции</NavLink>
             </ul>
+
             <AppButton
                 @click="$emit('openCart')"
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
-                >Корзина
+            >Корзина
             </AppButton>
         </Wrapper>
     </nav>
