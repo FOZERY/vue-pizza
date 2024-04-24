@@ -1,6 +1,7 @@
 <script setup>
 import MainMenu from '@/components/MainMenu.vue';
 import AppLoader from '@/components/UI/AppLoader.vue';
+import MenuSkeleton from '@/components/Skeletons/MenuSkeleton.vue';
 </script>
 
 <template>
@@ -9,8 +10,8 @@ import AppLoader from '@/components/UI/AppLoader.vue';
             <MainMenu />
         </template>
         <template #fallback>
-            <AppLoader />
-            <!--            <MenuSkeleton />-->
+<!--            <AppLoader />-->
+                 <MenuSkeleton />
         </template>
     </Suspense>
 </template>

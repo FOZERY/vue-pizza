@@ -15,7 +15,7 @@ const cartStore = useCartStore();
 
 const { popupIsOpen } = usePopup();
 
-const items = await productsStore.getAllItems;
+const items = productsStore.items;
 
 const item = items.find((item) => item.id === +route.params.id);
 
