@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import NavLink from '@/components/NavLink.vue';
 import AppButton from '@/components/UI/AppButton.vue';
+import Wrapper from '@/components/Utility/Wrapper.vue';
 
 const handleScroll = (nav, navOffset) => {
     if (window.scrollY > navOffset) {
@@ -31,6 +32,9 @@ onMounted(() => {
                 <NavLink :to="{ path: '/', hash: '#snacks' }">Закуски</NavLink>
                 <NavLink :to="{ path: '/', hash: '#deserts' }">Десерты</NavLink>
                 <NavLink :to="{ path: '/', hash: '#drinks' }">Напитки</NavLink>
+    <nav id="nav" class="nav sticky -top-0.5 z-10 flex-none">
+        <Wrapper class="flex justify-between items-center h-16">
+            <ul class="flex py-3 items-center gap-3 sm:gap-5 font-base sm:font-medium overflow-x-auto overflow-y-none">
                 <NavLink :to="'/stocks'">Акции</NavLink>
             </ul>
             <AppButton
@@ -38,7 +42,7 @@ onMounted(() => {
                 class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
                 >Корзина
             </AppButton>
-        </div>
+        </Wrapper>
     </nav>
 </template>
 
