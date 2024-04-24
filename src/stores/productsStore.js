@@ -2,21 +2,18 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import router from '@/router/router.js';
 
-export const useProductsStore = defineStore('productsStoreTest', {
+export const useProductsStore = defineStore('productsStore', {
     state: () => ({
         items: [],
         sections: {},
         sliderItems: [],
         types: [],
-        item: {},
+        searchQuery: '',
         isLoading: false,
         isItemLoading: false,
     }),
 
     getters: {
-        getAllItems() {
-            return this.items;
-        },
         getItemById() {
             return (id) => this.items.find((item) => item.id === id);
         },
@@ -24,18 +21,14 @@ export const useProductsStore = defineStore('productsStoreTest', {
 
     actions: {
         async fetchItems() {
-            this.isLoading = true;
             try {
-                console.log(this.items.length);
-                if (this.items.length > 0) return;
-                const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`);
+                const params = {};
+                if (this.searchQuery) {
+                    params.name = `*${this.searchQuery}*`;
+                }
+
+                const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`, { params });
                 this.items = data;
-                await this.fetchTypes();
-
-                this.sortBySections(this.items);
-
-                this.addToSlide();
-                // this.isLoading = false;
             } catch (err) {
                 console.log(err);
                 const errorCode = err.response.data.statusCode;
@@ -48,29 +41,28 @@ export const useProductsStore = defineStore('productsStoreTest', {
             try {
                 if (this.types.length > 0) return;
                 const { data } = await axios.get(
-                    'https://868534f3682258a9.mokky.dev/products_slider'
+                    'https://868534f3682258a9.mokky.dev/products_slider',
                 );
-
                 this.types = data;
 
-                data.forEach((type) => {
-                    if (!this.sections[type.type_name]) {
-                        this.sections[type.type_name] = {
-                            sectionTitle: type.type_name_ru,
-                            items: [],
-                        };
-                    }
-                });
             } catch (e) {
                 console.log(e);
             }
         },
-        sortBySections(items) {
-            items.forEach((item) => {
-                this.sections[item.type_name]['items'].push(item); // убрать условие?
+        sortBySections() {
+            this.sections = {};
+            this.items.forEach((item) => {
+                if (!this.sections[item.type_name]) {
+                    this.sections[item.type_name] = {
+                        sectionTitle: item.type_name_ru,
+                        items: [],
+                    };
+                }
+                this.sections[item.type_name]['items'].push(item);
             });
         },
         addToSlide() {
+            this.sliderItems = [];
             this.items.forEach((item) => {
                 if (item.isInSlider) {
                     this.sliderItems.push({
