@@ -5,16 +5,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* html {
+html {
     scroll-behavior: smooth;
-} */
+}
 
 html, body {
     height: 100%;
 }
 
 html {
-    scrollbar-gutter: stable !important;
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -28,3 +28,4 @@ body {
     height: 100%;
     overflow: hidden;
 }
+

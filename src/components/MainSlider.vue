@@ -45,7 +45,7 @@ defineProps({
 
 <template>
     <Splide :has-track="false" :options="sliderOptions" aria-label="">
-        <SplideTrack class="py-5">
+        <SplideTrack class="pb-5">
             <SplideSlide v-for="item in sliderItems" :key="item.id">
                 <MainSliderItem
                     :itemId="item.id"

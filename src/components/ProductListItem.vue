@@ -3,20 +3,19 @@ import AppButton from '@/components/UI/AppButton.vue';
 import { useRootStore } from '@/stores/rootStore.js';
 
 defineProps({
-    itemId: Number,
+    id: Number,
     name: String,
     description: String,
     price: Number,
     imageUrl: String,
-    section: String,
-    isAdded: Boolean,
+    type_name: String,
 });
 
 const rootStore = useRootStore();
 </script>
 <template>
     <router-link
-        :to="`/product/${itemId}`"
+        :to="`/product/${id}`"
         class="group flex pb-3 sm:p-0 gap-2 sm:flex-col border-b last:border-0 sm:border-0 cursor-pointer"
     >
         <img
@@ -33,11 +32,10 @@ const rootStore = useRootStore();
                 </p>
             </div>
             <div class="flex justify-between items-center">
-                <span class="hidden sm:inline font-medium">от {{ price }} ₽</span>
+                <span class="hidden sm:inline font-medium">за {{ price }} ₽</span>
                 <AppButton
-                    v-if="!isAdded"
                     class="bg-slate-200 text-red-500 rounded-3xl py-1.5 px-4 sm:px-5 hover:bg-red-100 transition duration-300 text-xs sm:text-base"
-                    >{{ rootStore.isMobile ? `От ${price} ₽` : `Выбрать` }}
+                >{{ rootStore.isMobile ? `За ${price} ₽` : `Выбрать` }}
                 </AppButton>
             </div>
         </div>

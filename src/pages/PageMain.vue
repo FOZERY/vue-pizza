@@ -10,10 +10,11 @@ import MenuSkeleton from '@/components/Skeletons/MenuSkeleton.vue';
             <MainMenu />
         </template>
         <template #fallback>
-<!--            <AppLoader />-->
-                 <MenuSkeleton />
+            <!--            <AppLoader />-->
+            <MenuSkeleton />
         </template>
     </Suspense>
 </template>
 
-<style scoped></style>
+<style>
+</style>

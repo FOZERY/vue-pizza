@@ -8,6 +8,7 @@ import HeaderDrawer from '@/components/HeaderDrawer.vue';
 import CartButton from '@/components/UI/CartButton.vue';
 import AppPopup from '@/components/UI/AppPopup.vue';
 import Authorization from '@/components/Authorization.vue';
+import AuthorizationAdmin from '@/components/AuthorizationAdmin.vue';
 
 import { usePopup } from '@/composables/usePopup.js';
 import { useCart } from '@/composables/useCart.js';
@@ -15,13 +16,21 @@ import { useHeaderDrawer } from '@/composables/useHeaderDrawer.js';
 
 import { useRootStore } from '@/stores/rootStore.js';
 import { useCartStore } from '@/stores/cartStore.js';
+import { ref } from 'vue';
 
 const cartStore = useCartStore();
 const rootStore = useRootStore();
 
-const { showPopup, popupIsOpen } = usePopup();
+const { showPopup, popupIsOpen, popupComponent } = usePopup();
 const { showCart, cartIsOpen } = useCart();
 const { showHeaderDrawer, headerDrawerIsOpen } = useHeaderDrawer();
+
+const popupComponents = {
+    Authorization,
+    AuthorizationAdmin,
+};
+
+document.querySelector('html').style.scrollbarGutter = 'stable';
 </script>
 
 <template>
@@ -30,18 +39,18 @@ const { showHeaderDrawer, headerDrawerIsOpen } = useHeaderDrawer();
     </Transition>
 
     <AppPopup v-if="!rootStore.isMobile" v-model:show="popupIsOpen">
-        <Authorization />
+        <component @closePopup="() => popupIsOpen = false" :is="popupComponents[popupComponent]" />
     </AppPopup>
 
     <TheCart v-model:isOpen="cartIsOpen" />
 
     <HeaderDrawer v-model:isShow="headerDrawerIsOpen" />
 
-    <TheHeader @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
+    <TheHeader @showUserSignIn="showPopup" @header-burger-click="showHeaderDrawer" />
 
     <Suspense>
         <template #default>
-    <TheNavbar @open-cart="showCart" />
+            <TheNavbar @open-cart="showCart" />
         </template>
         <template #fallback>
 
@@ -53,7 +62,7 @@ const { showHeaderDrawer, headerDrawerIsOpen } = useHeaderDrawer();
         </main>
     </Wrapper>
 
-    <TheFooter />
+    <TheFooter @showAdminSignIn="showPopup" />
 </template>
 
 <style>

@@ -1,5 +1,5 @@
 <script setup>
-import Logo from './UI/Logo.vue';
+import Logo from './UI/LogoMain.vue';
 import Wrapper from '@/components/Utility/Wrapper.vue';
 import { useRootStore } from '@/stores/rootStore.js';
 import AppButton from '@/components/UI/AppButton.vue';
@@ -40,9 +40,9 @@ const rootStore = useRootStore();
             <div class="header__right">
                 <AppButton
                     v-if="!rootStore.isAuth"
-                    @click="$emit('showPopup')"
+                    @click="$emit('showUserSignIn', 'Authorization')"
                     class="hidden md:block bg-slate-100 text-slate-500 hover:text-black hover:bg-slate-200 active:bg-slate-300"
-                    >Войти
+                >Войти
                 </AppButton>
                 <div class="hidden md:block" v-else>Профиль</div>
 

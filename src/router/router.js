@@ -20,6 +20,14 @@ const routes = [
         ],
     },
     {
+        path: '/admin',
+        name: RouteNames.admin,
+        component: () => import('@/pages/PageAdmin.vue'),
+        meta: {
+            layout: AppLayoutNames.admin,
+        },
+    },
+    {
         path: '/stocks',
         component: () => import('@/pages/PageStocks.vue'),
     },

@@ -13,6 +13,8 @@ const checkIsValid = () => {
 watch(isValid, () => {
     document.getElementById('submitRegBtn').disabled = !isValid.value;
 });
+
+defineEmits(['closePopup']);
 </script>
 
 <template>
@@ -29,6 +31,7 @@ watch(isValid, () => {
             placeholder="+7 (999) 999-99-99"
         />
         <input
+            @click="$emit('closePopup')"
             disabled
             id="submitRegBtn"
             type="submit"

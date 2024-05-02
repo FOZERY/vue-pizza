@@ -16,44 +16,48 @@ const year = new Date().getFullYear();
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="#" target="_blank"
-                        ><img class="w-8" src="/social-icons/vk.svg" alt=""
+                    ><img class="w-8" src="/social-icons/vk.svg" alt=""
                     /></a>
                     <a href="#" target="_blank"
-                        ><img class="w-8" src="/social-icons/tg.svg" alt=""
+                    ><img class="w-8" src="/social-icons/tg.svg" alt=""
                     /></a>
                     <a href="#" target="_blank"
-                        ><img class="w-8" src="/social-icons/inst.svg" alt=""
+                    ><img class="w-8" src="/social-icons/inst.svg" alt=""
                     /></a>
                 </div>
             </div>
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 items-start">
                 <span class="text-white">Roblox Пицца</span>
                 <a href="#" class="text-stone-600 hover:text-white transition duration-300"
-                    >О нас</a
+                >О нас</a
                 >
                 <a href="#" class="text-stone-600 hover:text-white transition duration-300"
-                    >Калорийность блюд</a
+                >Калорийность блюд</a
                 >
                 <a href="#" class="text-stone-600 hover:text-white transition duration-300"
-                    >Состав блюд</a
+                >Состав блюд</a
+                >
+                <span @click="$emit('showAdminSignIn', 'AuthorizationAdmin')"
+                      class="text-stone-600 hover:text-white transition duration-300 cursor-pointer"
+                >Админ-панель</span
                 >
             </div>
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 items-start">
                 <span class="text-white">Работа </span>
                 <a href="#" class="text-stone-600 hover:text-white transition duration-300"
-                    >В пиццерии</a
+                >В пиццерии</a
                 >
                 <a href="#" class="text-stone-600 hover:text-white transition duration-300"
-                    >It отдел</a
+                >It отдел</a
                 >
             </div>
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 items-start">
                 <span class="text-white">Контакты</span>
                 <a href="#" class="text-stone-600 hover:text-white transition duration-300"
-                    >Почта</a
+                >Почта</a
                 >
             </div>
-            <div class="flex flex-wrap gap-1">
+            <div class="flex flex-wrap gap-1 items-start">
                 <a href="#">
                     <img class="w-28" src="/badges/AppStore.svg" alt="App Store" />
                 </a>

@@ -11,6 +11,7 @@ import { watch } from 'vue';
 const productsStore = useProductsStore();
 
 productsStore.searchQuery = '';
+productsStore.filterQuery = '';
 await productsStore.fetchItems();
 productsStore.sortBySections();
 productsStore.addToSlide();
