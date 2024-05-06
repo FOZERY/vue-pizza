@@ -1,17 +1,12 @@
 <script setup>
 import Wrapper from './Utility/Wrapper.vue';
 
-defineProps({
-    isShow: {
-        type: Boolean,
-        default: false,
-    },
-});
+const isShow = defineModel({default: false});
 
 const emit = defineEmits(['update:isShow']);
 
 const closeHeaderDrawer = () => {
-    emit('update:isShow', false);
+    isShow.value = false;
 };
 </script>
 

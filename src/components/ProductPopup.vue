@@ -1,4 +1,6 @@
 <script setup>
+import {toRaw} from "vue";
+
 import AppButton from '@/components/UI/AppButton.vue';
 import AppPopup from '@/components/UI/AppPopup.vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -6,7 +8,6 @@ import { useRoute, useRouter } from 'vue-router';
 import { useProductsStore } from '@/stores/productsStore.js';
 import { useCartStore } from '@/stores/cartStore.js';
 import { usePopup } from '@/composables/usePopup.js';
-import axios from 'axios';
 
 const route = useRoute();
 const router = useRouter();
@@ -32,7 +33,7 @@ const addToCart = () => {
 </script>
 
 <template>
-    <AppPopup :with-routing="true" v-model:show="popupIsOpen">
+    <AppPopup :with-routing="true" v-model="popupIsOpen">
         <div class="flex sm:p-0 gap-2 border-b last:border-0 sm:border-0 min-h-72 md:h-80 lg:h-96">
             <img
                 :src="productsStore.item.imageUrl"

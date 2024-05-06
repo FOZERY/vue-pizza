@@ -9,17 +9,13 @@ import { useRootStore } from '@/stores/rootStore.js';
 const cartStore = useCartStore();
 const rootStore = useRootStore();
 
-defineProps({
-    isOpen: {
-        type: Boolean,
-        default: false,
-    },
-});
+const isOpen = defineModel({default: false});
 
 const emit = defineEmits(['update:isOpen']);
 
 const closeCart = () => {
-    emit('update:isOpen', false);
+    isOpen.value = false;
+    // emit('update:isOpen', false);
 };
 </script>
 

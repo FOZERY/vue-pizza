@@ -67,7 +67,8 @@ provide('setFormParams', getFormData);
 </script>
 
 <template>
-    <AppPopup v-model:show="popupIsOpen">
+    <div>
+    <AppPopup v-model="popupIsOpen">
         <component :is="popupComponents[popupComponent]"
                    v-bind="formData"
         />
@@ -135,7 +136,7 @@ provide('setFormParams', getFormData);
             </main>
         </div>
     </div>
-
+    </div>
 </template>
 
 <style scoped>

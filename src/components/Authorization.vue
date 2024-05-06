@@ -18,6 +18,7 @@ defineEmits(['closePopup']);
 </script>
 
 <template>
+    <div>
     <h2 class="text-2xl font-medium mb-5">Вход на сайт</h2>
 
     <form class="flex flex-col flex-1 w-96" action="" method="post">
@@ -39,6 +40,7 @@ defineEmits(['closePopup']);
             class="disabled:cursor-default cursor-pointer disabled:bg-stone-500 bg-red-500 text-white rounded-xl py-2 mt-5"
         />
     </form>
+    </div>
 </template>
 
 <style scoped></style>

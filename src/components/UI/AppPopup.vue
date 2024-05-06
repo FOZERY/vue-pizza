@@ -2,10 +2,6 @@
 import { useRouter } from 'vue-router';
 
 const props = defineProps({
-    show: {
-        type: Boolean,
-        default: false,
-    },
     withRouting: {
         type: Boolean,
         default: false,
@@ -16,8 +12,10 @@ const emit = defineEmits(['update:show']);
 
 const router = useRouter();
 
+const show = defineModel();
+
 const closePopup = () => {
-    emit('update:show', false);
+    show.value = false;
     if (props.withRouting) {
         router.push('/');
     }

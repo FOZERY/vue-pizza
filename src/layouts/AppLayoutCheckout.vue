@@ -25,11 +25,11 @@ const popupComponents = {
 
 <template>
     <!--    повторяющийся код-->
-    <AppPopup v-if="!rootStore.isMobile" v-model:show="popupIsOpen">
+    <AppPopup v-if="!rootStore.isMobile" v-model="popupIsOpen">
         <component @closePopup="() => popupIsOpen = false" :is="popupComponents[popupComponent]" />
     </AppPopup>
 
-    <HeaderDrawer v-model:isShow="headerDrawerIsOpen" />
+    <HeaderDrawer v-model="headerDrawerIsOpen" />
 
     <TheHeader @show-popup="showPopup" @header-burger-click="showHeaderDrawer" />
 

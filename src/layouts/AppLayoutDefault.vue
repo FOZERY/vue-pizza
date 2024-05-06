@@ -38,13 +38,13 @@ document.querySelector('html').style.scrollbarGutter = 'stable';
         <CartButton @click="showCart" v-if="rootStore.isMobile && cartStore.cartItems.length > 0" />
     </Transition>
 
-    <AppPopup v-if="!rootStore.isMobile" v-model:show="popupIsOpen">
+    <AppPopup v-if="!rootStore.isMobile" v-model="popupIsOpen">
         <component @closePopup="() => popupIsOpen = false" :is="popupComponents[popupComponent]" />
     </AppPopup>
 
-    <TheCart v-model:isOpen="cartIsOpen" />
+    <TheCart v-model="cartIsOpen" />
 
-    <HeaderDrawer v-model:isShow="headerDrawerIsOpen" />
+    <HeaderDrawer v-model="headerDrawerIsOpen" />
 
     <TheHeader @showUserSignIn="showPopup" @header-burger-click="showHeaderDrawer" />
 
