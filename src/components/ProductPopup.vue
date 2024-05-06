@@ -19,7 +19,7 @@ const { popupIsOpen } = usePopup();
 
 await productsStore.fetchItem(route.params.id);
 
-if (!productsStore.item) {
+if (!Object.keys(productsStore.item).length) {
     router.push('/');
 } else {
     popupIsOpen.value = true;
