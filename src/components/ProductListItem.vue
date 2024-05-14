@@ -7,8 +7,8 @@ defineProps({
     name: String,
     description: String,
     price: Number,
-    imageUrl: String,
-    type_name: String,
+    image: String,
+    type_id: Number,
 });
 
 const rootStore = useRootStore();
@@ -20,7 +20,7 @@ const rootStore = useRootStore();
     >
         <img
             class="md:group-hover:-translate-y-1 transition duration-300 w-32 h-32 sm:w-60 sm:h-60 sm:mx-auto"
-            :src="imageUrl"
+            :src="image"
             loading="lazy"
             :alt="name"
         />

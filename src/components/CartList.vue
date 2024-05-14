@@ -11,11 +11,11 @@ const cartStore = useCartStore();
         <CartListItem
             v-for="item in cartStore.cartItems"
             :key="item.id"
-            :itemId="item.id"
+            :id="+item.id"
             :name="item.name"
             :description="item.description"
             :price="item.price"
-            :imageUrl="item.imageUrl"
+            :image="item.image"
             :quantity="item.quantity"
             @incrementQuantity="() => cartStore.incrementQuantity(item)"
             @decrementQuantity="() => cartStore.decrementQuantity(item)"

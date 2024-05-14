@@ -48,11 +48,8 @@ defineProps({
         <SplideTrack class="pb-5">
             <SplideSlide v-for="item in sliderItems" :key="item.id">
                 <MainSliderItem
-                    :itemId="item.id"
-                    :name="item.name"
-                    :price="item.price"
-                    :imageUrl="item.imageUrl"
-                    :section="item.type_name"
+                    v-bind="item"
+            
                 />
             </SplideSlide>
         </SplideTrack>

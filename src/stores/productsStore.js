@@ -2,6 +2,8 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import router from '@/router/router.js';
 
+const API_URL = import.meta.env.VITE_APP_API_URL;
+
 export const useProductsStore = defineStore('productsStore', {
     state: () => ({
         items: [],
@@ -25,32 +27,71 @@ export const useProductsStore = defineStore('productsStore', {
         async fetchItems() {
             try {
                 this.isLoading = true;
+                console.log(this.isLoading);
                 this.items = [];
                 const params = {};
                 if (this.searchQuery) {
-                    params.name = `*${this.searchQuery}*`;
+                    params.name = `${this.searchQuery}`;
                 }
 
                 if (this.filterQuery) {
-                    params.type_name = `${this.filterQuery}`;
+                    params.type_id = `${this.filterQuery}`;
                 }
-
-                const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products`, { params });
+                const { data } = await axios.get(`${API_URL}product/read.php`, { params });
                 this.items = data;
-                this.isLoading = false;
             } catch (err) {
                 console.log(err);
-                const errorCode = err.response.data.statusCode;
-                await router.push({
-                    path: `/error/${errorCode}`,
-                });
-                this.isLoaing = false;
+            } finally {
+                this.isLoading = false;
             }
         },
         async fetchItem(id) {
             try {
-                const { data } = await axios.get(`https://868534f3682258a9.mokky.dev/products/${id}`);
+                const { data } = await axios.get(`${API_URL}product/readOne.php?id=${id}`);
                 this.item = data;
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        async createItem(itemData, selectedFile) {
+            try {
+                this.isLoading = true;
+                const fd = new FormData();
+                for(let key in itemData) {
+                    if(key === 'image') {
+                        fd.append('image', selectedFile, selectedFile.name);
+                    }
+                    fd.append(key, itemData[key]);
+                }
+                const response = await axios.post(`${API_URL}product/create.php`, fd);
+                this.isLoading = false;
+            } catch(err) {
+                alert(err);
+            }
+        },
+        async updateItem(itemData, selectedFile) {
+            try {
+                console.log(itemData);
+                this.isLoading = true;
+                const fd = new FormData();
+                for(let key in itemData) {
+                    if(key === 'image' && selectedFile) {
+                        fd.append('image', selectedFile, selectedFile.name);
+                    } else {
+                        fd.append(key, itemData[key]);
+                    }
+                }
+                const response = await axios.post(`${API_URL}product/update.php`, fd);
+                this.isLoading = false;
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        async deleteItem(itemId) {
+            try {
+                const fd = new FormData();
+                fd.append('id', itemId);
+                const response = await axios.post(`${API_URL}product/delete.php`, fd);
             } catch (err) {
                 console.log(err);
             }
@@ -82,7 +123,7 @@ export const useProductsStore = defineStore('productsStore', {
         addToSlide() {
             this.sliderItems = [];
             this.items.forEach((item) => {
-                if (item.isInSlider) {
+                if (item.inSlider) {
                     this.sliderItems.push({
                         ...item,
                     });

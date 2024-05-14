@@ -6,26 +6,29 @@ import MainMenuSection from '@/components/MainMenuSection.vue';
 import TitleSection from '@/components/UI/TitleSection.vue';
 
 import { useProductsStore } from '@/stores/productsStore.js';
-import { watch } from 'vue';
+
+import {watch} from 'vue';
 
 const productsStore = useProductsStore();
 
 productsStore.searchQuery = '';
 productsStore.filterQuery = '';
+
 await productsStore.fetchItems();
 productsStore.sortBySections();
 productsStore.addToSlide();
 
-watch(() => productsStore.searchQuery, debounce(async () => {
-    await productsStore.fetchItems();
-    productsStore.sortBySections();
-}, 500));
+watch(
+    () => productsStore.searchQuery,
+    debounce(async () => {
+        await productsStore.fetchItems();
+        productsStore.sortBySections();
+    }, 500)
+);
 </script>
 
 <template>
-    <teleport to="body">
-        <router-view />
-    </teleport>
+    <router-view />
 
     <section class="mb-5">
         <TitleSection>Новинки</TitleSection>

@@ -3,8 +3,6 @@ const props = defineProps({
     items: Array,
     component: Object,
 });
-
-console.log(props.items);
 </script>
 
 <template>

@@ -1,10 +1,10 @@
 <script setup>
 defineProps({
-    itemId: Number,
+    id: Number,
     name: String,
     description: String,
     price: Number,
-    imageUrl: String,
+    image: String,
     quantity: Number,
 });
 </script>
@@ -12,7 +12,7 @@ defineProps({
 <template>
     <div class="flex flex-col border-b last:border-0">
         <div class="flex sm:p-0 gap-2 sm:border-0">
-            <img class="w-20 h-20 sm:w-24 sm:h-24" :src="imageUrl" />
+            <img class="w-20 h-20 sm:w-24 sm:h-24" :src="image" />
             <div class="flex flex-col gap-3 justify-between flex-1">
                 <div>
                     <h3 class="text-lg font-medium mb-1">{{ name }}</h3>
