@@ -23,6 +23,7 @@ const closePopup = () => {
 </script>
 
 <template>
+    <Teleport to="body">
     <Transition name="popup">
         <div
             v-if="show"
@@ -68,6 +69,7 @@ const closePopup = () => {
             </div>
         </div>
     </Transition>
+    </Teleport>
 </template>
 
 <style scoped>
