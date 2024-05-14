@@ -21,11 +21,27 @@ const routes = [
     },
     {
         path: '/admin',
-        name: RouteNames.admin,
-        component: () => import('@/pages/PageAdmin.vue'),
+        redirect: '/admin/products',
+        name: 'admin',
         meta: {
             layout: AppLayoutNames.admin,
         },
+        children: [
+            {
+                path: 'products',
+                component: () => import('@/pages/PageAdminProducts.vue'),
+                name: 'admin-products'
+            },
+            {
+                path: 'customers',
+                component: () => import('@/pages/PageAdminCustomers.vue'),
+                name: 'admin-customers'
+            },
+            {
+                path: 'couriers',
+                component: () => import('@/pages/PageAdminCouriers.vue'),
+            }
+        ]
     },
     {
         path: '/stocks',
@@ -53,7 +69,7 @@ const routes = [
 
 const router = createRouter({
     routes,
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     scrollBehavior(to, from, savedPosition) {
         if (from.path.startsWith('/product/') || to.path.startsWith('/product/')) return;
         if (to.hash) {

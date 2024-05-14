@@ -6,30 +6,21 @@ const props = defineProps({
     name: String,
     description: String,
     price: Number,
-    imageUrl: String,
-    type_name: String,
+    image: String,
+    type_id: Number,
 });
 
-const itemData = {
-    id: props.id,
-    type_name: props.type_name,
-    name: props.name,
-    description: props.description,
-    price: Number(props.price),
-    imageUrl: props.imageUrl,
-};
-
 const showPopup = inject('showPopup');
-const setFormParams = inject('setFormParams');
+const setFormData = inject('setFormData');
 
 const showChangeForm = () => {
     showPopup('FormChangeProduct');
-    setFormParams(itemData);
+    setFormData(props);
 };
 
 const showDeleteForm = () => {
     showPopup('FormDeleteProduct');
-    setFormParams(itemData);
+    setFormData(props);
 };
 </script>
 <template>
@@ -41,7 +32,7 @@ const showDeleteForm = () => {
              class="absolute top-0 right-0 h-6 hover:scale-110 transition duration-300" />
         <img
             class="w-32 h-32 sm:w-60 sm:h-60 sm:mx-auto"
-            :src="imageUrl"
+            :src="image"
             loading="lazy"
             :alt="name"
         />

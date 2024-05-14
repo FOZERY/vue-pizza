@@ -21,7 +21,7 @@ defineEmits(['closePopup']);
 <template>
     <h2 class="text-2xl font-medium mb-5">Вход в админ-панель</h2>
 
-    <form class="flex flex-col flex-1 w-96 gap-3" @submit.prevent="router.push('admin')">
+    <form class="flex flex-col flex-1 w-96 gap-3" @submit.prevent="router.push({name: 'admin'})">
         <div class="flex flex-col gap-1">
             <label for="name" class="text-slate-500 ">Логин</label>
             <input @input="checkIsValid" name="login" type="text" placeholder="Ваш логин..."
