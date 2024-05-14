@@ -28,6 +28,7 @@ if (!Object.keys(productsStore.item).length) {
 const addToCart = () => {
     cartStore.addToCart(productsStore.item);
     popupIsOpen.value = false;
+    productsStore.item = null;
     router.push('/');
 };
 </script>
@@ -36,7 +37,7 @@ const addToCart = () => {
     <AppPopup :with-routing="true" v-model="popupIsOpen">
         <div class="flex sm:p-0 gap-2 border-b last:border-0 sm:border-0 min-h-72 md:h-80 lg:h-96">
             <img
-                :src="productsStore.item.imageUrl"
+                :src="productsStore.item.image"
                 class="max-w-32 max-h-32 sm:max-w-52 sm:max-h-52 md:max-w-64 md:max-h-64 lg:max-w-80 lg:max-h-80 sm:mx-auto self-center"
             />
             <div class="flex flex-col gap-3 justify-between flex-1 sm:w-56 md:w-64 lg:w-72">
