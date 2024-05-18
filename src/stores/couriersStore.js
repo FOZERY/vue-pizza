@@ -38,8 +38,18 @@ export const useCouriersStore = defineStore('couriersStore', {
                 console.log(err);
             }
         },
-        async addCourier() {
-
+        async createCourier(courierData) {
+            try {
+                this.isLoading = true;
+                const fd = new FormData();
+                for(let key in courierData) {
+                    fd.append(key, courierData[key]);
+                }
+                const response = await axios.post(`${API_URL}/courier/create.php`, fd);
+                this.isLoading = false;
+            } catch(err) {
+                alert(err);
+            }
         },
         async updateCourier(courierData) {
             try {
@@ -48,7 +58,7 @@ export const useCouriersStore = defineStore('couriersStore', {
                 for(let key in courierData) {
                     fd.append(key, courierData[key]);
                 }
-                const response = await axios.post(`${API_URL}courier/update.php`, fd);
+                const response = await axios.post(`${API_URL}/courier/update.php`, fd);
                 this.isLoading = false;
             } catch(err) {
                 alert(err);
@@ -59,7 +69,7 @@ export const useCouriersStore = defineStore('couriersStore', {
                this.isLoading = true;
                const fd = new FormData();
                fd.append('id', courierId);
-               await axios.post(`${API_URL}courier/delete.php`, fd);
+               await axios.post(`${API_URL}/courier/delete.php`, fd);
 
             } catch(err) {
                 alert(err);

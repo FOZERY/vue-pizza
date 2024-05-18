@@ -2,8 +2,9 @@
 import { useProductsStore } from '@/stores/productsStore';
 import axios from 'axios';
 import { reactive } from 'vue';
+import { useCouriersStore } from '@/stores/couriersStore.js';
 
-const productsStore = useProductsStore();
+const couriersStore = useCouriersStore();
 
 const courierData = reactive({
     name: '',
@@ -12,16 +13,10 @@ const courierData = reactive({
     phone: ''
 });
 
-
-let selectedFile;
-const onFileSelect = (event) => {
-    selectedFile = event.target.files[0];
-}
-
-const emit = defineEmits(['closePopup', 'productChanged']);
-const createProduct = async () => {
-    await productsStore.createItem(productData, selectedFile);
-    emit('productChanged');
+const emit = defineEmits(['productChanged']);
+const createCourier = async () => {
+    await couriersStore.createCourier(courierData);
+    emit('courierChanged');
 }
 </script>
 
@@ -50,7 +45,7 @@ const createProduct = async () => {
                        class="border bg-white border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300">
             </div>
             <input
-                @click.prevent="updateCustomer"
+                @click.prevent="createCourier"
                 id="submitRegBtn"
                 type="submit"
                 value="Добавить курьера"
