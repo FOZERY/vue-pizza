@@ -48,7 +48,7 @@ const updateCustomer = async () => {
             </div>
             <div class="flex flex-col gap-1">
                 <label for="name" class="text-slate-500 ">Номер</label>
-                <input name="price" type="number" v-model="customerData.phone"
+                <input name="price" type="tel" v-model="customerData.phone"
                        class="border bg-white border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300">
             </div>
             <div class="flex flex-col gap-1">
