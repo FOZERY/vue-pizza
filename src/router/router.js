@@ -49,6 +49,14 @@ const routes = [
         component: () => import('@/pages/PageStocks.vue'),
     },
     {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/pages/PageProfile.vue'),
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
         path: '/checkout',
         component: () => import('@/pages/PageCheckout.vue'),
         meta: {
