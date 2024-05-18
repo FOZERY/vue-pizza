@@ -3,6 +3,7 @@ import { loadLayoutMiddleware } from '@/router/middleware/loadLayoutMiddleware.j
 import { RouteNames } from '@/router/routeNames.js';
 import { AppLayoutNames } from '@/layouts/layoutsNames.js';
 import ProductPopup from '@/components/ProductPopup.vue';
+import { useUserStore } from '@/stores/userStore.js';
 
 const routes = [
     {
@@ -30,18 +31,18 @@ const routes = [
             {
                 path: 'products',
                 component: () => import('@/pages/PageAdminProducts.vue'),
-                name: 'admin-products'
+                name: 'admin-products',
             },
             {
                 path: 'customers',
                 component: () => import('@/pages/PageAdminCustomers.vue'),
-                name: 'admin-customers'
+                name: 'admin-customers',
             },
             {
                 path: 'couriers',
                 component: () => import('@/pages/PageAdminCouriers.vue'),
-            }
-        ]
+            },
+        ],
     },
     {
         path: '/stocks',
@@ -86,6 +87,22 @@ const router = createRouter({
     },
 });
 
+router.beforeResolve(async (to, from, next) => {
+    const userStore = useUserStore();
+    console.log(userStore.isAuth);
+    if(to.meta.requiresAuth) {
+        if(!userStore.isAuth) {
+            next({
+                path: '/'
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 router.beforeEach(loadLayoutMiddleware);
+
 
 export default router;

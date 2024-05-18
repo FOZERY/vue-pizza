@@ -3,17 +3,29 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { onMounted, watch } from 'vue';
 import { useRootStore } from '@/stores/rootStore.js';
 import { useCartStore } from '@/stores/cartStore.js';
+import { useUserStore } from '@/stores/userStore.js';
+import { check } from '@/http/userAPI.js';
 
 const rootStore = useRootStore();
 const cartStore = useCartStore();
+
+const userStore = useUserStore();
 
 const resizeWindowEvent = () => {
     window.innerWidth >= 768 ? (rootStore.isMobile = false) : (rootStore.isMobile = true);
 };
 
-onMounted(() => {
+check().then(data => {
+    userStore.user = data;
+    userStore.isAuth = true;
+}).catch(error => {
+    console.log(error);
+});
+
+onMounted(async () => {
     window.addEventListener('resize', resizeWindowEvent);
     resizeWindowEvent();
+
 });
 
 watch(
@@ -21,10 +33,8 @@ watch(
     () => {
         localStorage.setItem('cartItems', JSON.stringify(cartStore.cartItems));
     },
-    { deep: true }
+    { deep: true },
 );
-
-
 </script>
 
 <template>
