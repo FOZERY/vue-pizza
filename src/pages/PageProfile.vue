@@ -9,13 +9,6 @@ const logout = () => {
     router.go(0);
 }
 
-onMounted(async() => {
-    try {
-        await
-    } catch(e) {
-        console.log(e);
-    }
-})
 </script>
 
 <template>

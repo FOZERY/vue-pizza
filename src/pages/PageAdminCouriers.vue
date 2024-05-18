@@ -217,9 +217,9 @@ onMounted(async () => {
                         >
                             {{ courier.id }}
                         </th>
-                        <td class="px-6 py-4">{{ courier.name }}</td>
+                        <td class="px-6 py-4">{{ courier.name  }}</td>
                         <td class="px-6 py-4">{{courier.surname}}</td>
-                        <td class="px-6 py-4">{{ courier.patronymic }}</td>
+                        <td class="px-6 py-4">{{ courier.patronymic || 'Не задано' }}</td>
                         <td class="px-6 py-4">{{ courier.phone }}</td>
                         <td class="px-6 py-4 text-right">
                             <a @click.prevent="showChangeForm(courier)"

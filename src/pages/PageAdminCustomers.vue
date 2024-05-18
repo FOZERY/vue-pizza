@@ -226,11 +226,11 @@ onMounted(async () => {
                         >
                             {{ customer.id }}
                         </th>
-                        <td class="px-6 py-4">{{ customer.name }}</td>
-                        <td class="px-6 py-4">{{customer.surname}}</td>
-                        <td class="px-6 py-4">{{ customer.email }}</td>
-                        <td class="px-6 py-4">{{ customer.phone }}</td>
-                        <td class="px-6 py-4">{{ customer.address }}</td>
+                        <td class="px-6 py-4">{{ customer.name || 'Не задано' }}</td>
+                        <td class="px-6 py-4">{{customer.surname || 'Не задано'}}</td>
+                        <td class="px-6 py-4">{{ customer.email  || 'Не задано'}}</td>
+                        <td class="px-6 py-4">{{ customer.phone || 'Не задано'}}</td>
+                        <td class="px-6 py-4">{{ customer.address || 'Не задано'}}</td>
                         <td class="px-6 py-4 text-right">
                             <a @click.prevent="showChangeForm(customer)"
                                 href="#"
