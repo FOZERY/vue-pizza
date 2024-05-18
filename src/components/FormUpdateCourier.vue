@@ -52,8 +52,8 @@ const updateCourier = async () => {
                        class="border bg-white border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300">
             </div>
             <div class="flex flex-col gap-1">
-                <label for="name" class="text-slate-500 ">Телефон</label>
-                <input name="price" type="text" v-model="courierData.phone"
+                <label for="phone" class="text-slate-500 ">Телефон</label>
+                <input name="phone" type="tel" v-model="courierData.phone"
                        class="border bg-white border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300">
             </div>
             <input
