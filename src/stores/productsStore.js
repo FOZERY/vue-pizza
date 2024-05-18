@@ -27,7 +27,6 @@ export const useProductsStore = defineStore('productsStore', {
         async fetchItems() {
             try {
                 this.isLoading = true;
-                console.log(this.isLoading);
                 this.items = [];
                 const params = {};
                 if (this.searchQuery) {
@@ -37,7 +36,7 @@ export const useProductsStore = defineStore('productsStore', {
                 if (this.filterQuery) {
                     params.type_id = `${this.filterQuery}`;
                 }
-                const { data } = await axios.get(`${API_URL}product/read.php`, { params });
+                const { data } = await axios.get(`${API_URL}/product/read.php`, { params });
                 this.items = data;
             } catch (err) {
                 console.log(err);
@@ -47,7 +46,7 @@ export const useProductsStore = defineStore('productsStore', {
         },
         async fetchItem(id) {
             try {
-                const { data } = await axios.get(`${API_URL}product/readOne.php?id=${id}`);
+                const { data } = await axios.get(`${API_URL}/product/readOne.php?id=${id}`);
                 this.item = data;
             } catch (err) {
                 console.log(err);
@@ -63,7 +62,7 @@ export const useProductsStore = defineStore('productsStore', {
                     }
                     fd.append(key, itemData[key]);
                 }
-                const response = await axios.post(`${API_URL}product/create.php`, fd);
+                const response = await axios.post(`${API_URL}/product/create.php`, fd);
                 this.isLoading = false;
             } catch(err) {
                 alert(err);
@@ -81,7 +80,7 @@ export const useProductsStore = defineStore('productsStore', {
                         fd.append(key, itemData[key]);
                     }
                 }
-                const response = await axios.post(`${API_URL}product/update.php`, fd);
+                const response = await axios.post(`${API_URL}/product/update.php`, fd);
                 this.isLoading = false;
             } catch(err) {
                 console.log(err);
@@ -91,7 +90,7 @@ export const useProductsStore = defineStore('productsStore', {
             try {
                 const fd = new FormData();
                 fd.append('id', itemId);
-                const response = await axios.post(`${API_URL}product/delete.php`, fd);
+                const response = await axios.post(`${API_URL}/product/delete.php`, fd);
             } catch (err) {
                 console.log(err);
             }
@@ -123,12 +122,12 @@ export const useProductsStore = defineStore('productsStore', {
         addToSlide() {
             this.sliderItems = [];
             this.items.forEach((item) => {
-                if (item.inSlider) {
+                if (item.in_slider) {
                     this.sliderItems.push({
                         ...item,
                     });
                 }
             });
-        },
+        }
     },
 });

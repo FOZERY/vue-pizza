@@ -41,7 +41,7 @@ await productsStore.fetchTypes();
 
             <AppButton
                 @click="$emit('openCart')"
-                class="hidden md:block bg-red-500 text-white hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
+                class="hidden md:block bg-red-500 text-white font-medium hover:bg-red-600 py-1.5 px-3 active:bg-red-700"
             >Корзина
             </AppButton>
         </Wrapper>

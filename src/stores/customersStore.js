@@ -48,7 +48,7 @@ export const useCustomersStore = defineStore('customersStore', {
                 for(let key in customerData) {
                     fd.append(key, customerData[key]);
                 }
-                const response = await axios.post(`${API_URL}customer/update.php`, fd);
+                const response = await axios.post(`${API_URL}/customer/update.php`, fd);
                 this.isLoading = false;
             } catch(err) {
                 alert(err);
@@ -59,7 +59,7 @@ export const useCustomersStore = defineStore('customersStore', {
                this.isLoading = true;
                const fd = new FormData();
                fd.append('id', customerId);
-               await axios.post(`${API_URL}customer/delete.php`, fd);
+               await axios.post(`${API_URL}/customer/delete.php`, fd);
 
             } catch(err) {
                 alert(err);
