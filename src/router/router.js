@@ -4,6 +4,7 @@ import { RouteNames } from '@/router/routeNames.js';
 import { AppLayoutNames } from '@/layouts/layoutsNames.js';
 import ProductPopup from '@/components/ProductPopup.vue';
 import { useUserStore } from '@/stores/userStore.js';
+import { useAdminStore } from '@/stores/adminStore.js';
 
 const routes = [
     {
@@ -26,6 +27,7 @@ const routes = [
         name: 'admin',
         meta: {
             layout: AppLayoutNames.admin,
+            requiresAdmin: true,
         },
         children: [
             {
@@ -97,9 +99,19 @@ const router = createRouter({
 
 router.beforeResolve(async (to, from, next) => {
     const userStore = useUserStore();
-    console.log(userStore.isAuth);
+    const adminStore = useAdminStore();
     if(to.meta.requiresAuth) {
         if(!userStore.isAuth) {
+            alert('Доступ запрещён');
+            next({
+                path: '/'
+            });
+        } else {
+            next();
+        }
+    } else if(to.meta.requiresAdmin) {
+        if(!adminStore.isAuth) {
+            alert('Доступ запрещён');
             next({
                 path: '/'
             });
