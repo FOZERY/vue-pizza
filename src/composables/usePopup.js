@@ -10,7 +10,6 @@ export function usePopup() {
     };
 
     watch(popupIsOpen, () => {
-        console.log(popupIsOpen.value);
         popupIsOpen.value
             ? document.body.classList.add('noScroll')
             : document.body.classList.remove('noScroll');
