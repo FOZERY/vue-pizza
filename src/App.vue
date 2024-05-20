@@ -4,7 +4,6 @@ import { onMounted, watch } from 'vue';
 import { useRootStore } from '@/stores/rootStore.js';
 import { useCartStore } from '@/stores/cartStore.js';
 import { useUserStore } from '@/stores/userStore.js';
-import { check } from '@/http/userAPI.js';
 
 const rootStore = useRootStore();
 const cartStore = useCartStore();
@@ -15,15 +14,19 @@ const resizeWindowEvent = () => {
     window.innerWidth >= 768 ? (rootStore.isMobile = false) : (rootStore.isMobile = true);
 };
 
-check().then(data => {
-    userStore.user = data;
+
+userStore.check().then(async (data) => {
+    userStore.user.id = data.id;
     userStore.isAuth = true;
+    await userStore.fetchUser(userStore.user['id']);
 }).catch(error => {
     console.log(error);
 });
 
+
 onMounted(async () => {
     window.addEventListener('resize', resizeWindowEvent);
+    window.addEventListener('beforeunload', () => localStorage.removeItem('jwt-admin')); // потом вернуться и исправить
     resizeWindowEvent();
 
 });
