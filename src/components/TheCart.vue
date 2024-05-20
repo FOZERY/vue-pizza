@@ -5,17 +5,28 @@ import Drawer from '@/components/Drawer.vue';
 
 import { useCartStore } from '@/stores/cartStore.js';
 import { useRootStore } from '@/stores/rootStore.js';
+import { useUserStore } from '@/stores/userStore.js';
+import router from '@/router/router.js';
 
 const cartStore = useCartStore();
 const rootStore = useRootStore();
+const userStore = useUserStore();
 
-const isOpen = defineModel({default: false});
+const isOpen = defineModel({ default: false });
 
-const emit = defineEmits(['update:isOpen']);
+const emit = defineEmits(['update:isOpen', 'showUserSignIn']);
 
 const closeCart = () => {
     isOpen.value = false;
-    // emit('update:isOpen', false);
+};
+
+const goToCheckout = async () => {
+    if (userStore.isAuth) {
+        isOpen.value = false;
+        await router.push('/checkout');
+    } else {
+        emit('showUserSignIn');
+    }
 };
 </script>
 
@@ -70,13 +81,12 @@ const closeCart = () => {
                             <span class="font-medium">{{ cartStore.totalPrice }} ₽</span>
                         </div>
 
-                        <router-link to="/checkout">
-                            <AppButton
-                                @click="closeCart"
-                                class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300 w-full"
-                                >Оформить заказ
-                            </AppButton>
-                        </router-link>
+
+                        <AppButton
+                            @click="goToCheckout"
+                            class="bg-red-600 py-2 text-white hover:bg-red-700 transition duration-300 w-full"
+                        >Оформить заказ
+                        </AppButton>
                     </div>
                 </div>
                 <div v-else class="flex flex-col justify-center items-center h-full">
@@ -135,9 +145,8 @@ const closeCart = () => {
 
     .cart-enter-active .inner,
     .cart-leave-active .inner {
-        transition:
-            opacity 0.4s ease-in,
-            transform 0.4s ease-in-out;
+        transition: opacity 0.4s ease-in,
+        transform 0.4s ease-in-out;
     }
 
     .cart-enter-from .inner,
