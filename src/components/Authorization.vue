@@ -2,10 +2,13 @@
 import { nextTick, ref, watch } from 'vue';
 import AppButton from '@/components/UI/AppButton.vue';
 import router from '@/router/router.js';
-import { login, sendOtp } from '@/http/userAPI.js';
 import { useUserStore } from '@/stores/userStore.js';
 
-defineEmits(['closePopup']);
+const props = defineProps({
+    fromCart: { type: Boolean, default: false },
+});
+
+const emit = defineEmits(['closePopup']);
 
 const userStore = useUserStore();
 
@@ -13,7 +16,6 @@ const isValid = ref(false);
 const isSentMessage = ref(false);
 
 const inputNumber = ref('');
-let formatedPhoneNumber;
 
 let otp_id;
 
@@ -38,7 +40,8 @@ const checkIsValid = () => {
 
 const sendMessage = async () => {
     try {
-        const response = await sendOtp(formatedPhoneNumber);
+        const formatedPhoneNumber = formatPhoneNumber(inputNumber.value);
+        const response = await userStore.sendOtp(formatedPhoneNumber);
         otp_id = response.data.otp_id;
         isSentMessage.value = true;
     } catch (e) {
@@ -49,12 +52,16 @@ const sendMessage = async () => {
 const sendVerificationCode = async () => {
     if (isSentMessage.value) {
         try {
+            const formatedPhoneNumber = formatPhoneNumber(inputNumber.value);
             const inputs = [...otp_form.value.querySelectorAll('input[type=text]')];
             const verificationCode = inputs.reduce((acc, curr) => acc + curr.value, '');
-            userStore.user = await login(formatedPhoneNumber, verificationCode, otp_id);
+            userStore.user = await userStore.login(formatedPhoneNumber, verificationCode, otp_id);
             userStore.isAuth = true;
-            router.go(router.currentRoute);
+            inputs.forEach((input) => input.value = '');
+            emit('closePopup');
+            await (props.fromCart ? router.push('/checkout') : router.push('/profile'));
         } catch (e) {
+            console.log(e);
             alert(e.response.data.message);
         }
 
@@ -140,9 +147,6 @@ watch(isSentMessage, async () => {
 
 watch(isValid, () => {
     document.getElementById('submitRegBtn').disabled = !isValid.value;
-    if (isValid.value) {
-        formatedPhoneNumber = formatPhoneNumber(inputNumber.value);
-    }
 });
 </script>
 
