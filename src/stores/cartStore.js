@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { $host } from '@/http/index.js';
 
 export const useCartStore = defineStore('cartStore', () => {
     const cartItems = ref([]);
@@ -38,19 +39,34 @@ export const useCartStore = defineStore('cartStore', () => {
     const totalPrice = computed(() =>
         cartItems.value.reduce((accumulator, item) => {
             return accumulator + item.price * item.quantity;
-        }, 0)
+        }, 0),
     );
 
     const totalItems = computed(() =>
         cartItems.value.reduce((accumulator, item) => {
             return accumulator + item.quantity;
-        }, 0)
+        }, 0),
     );
+
+    const createOrder = async (customer_id, order_type_id, order_items) => {
+        try {
+            const response = await $host.post('/orders/create.php', {
+                customer_id: customer_id,
+                order_type_id: order_type_id,
+                order_items: order_items,
+            });
+            return response;
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    };
 
     return {
         cartItems,
         totalPrice,
         totalItems,
+        createOrder,
         addToCart,
         incrementQuantity,
         decrementQuantity,
