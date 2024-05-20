@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 import { reactive } from 'vue';
 
 import { useCustomersStore } from '@/stores/customersStore';
@@ -27,9 +26,14 @@ const customerData = reactive({
 const emit = defineEmits(['customerChanged']);
 
 const updateCustomer = async () => {
-    await customersStore.updateCustomer(customerData);
-    emit('customerChanged');
-}
+    try {
+        await customersStore.updateCustomerAsAdmin(customerData);
+        alert('Пользователь успешно изменён');
+        emit('customerChanged');
+    } catch (e) {
+        alert(e.response.data.message);
+    }
+};
 </script>
 
 <template>
@@ -52,7 +56,7 @@ const updateCustomer = async () => {
                        class="border bg-white border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300">
             </div>
             <div class="flex flex-col gap-1">
-                <label for="name" class="text-slate-500 " >Email</label>
+                <label for="name" class="text-slate-500 ">Email</label>
                 <input name="img" type="text" v-model="customerData.email"
                        class="border bg-white border-slate-300 font-medium focus:border-slate-700 rounded-md py-1.5 px-2 outline-none transition duration 300">
             </div>
