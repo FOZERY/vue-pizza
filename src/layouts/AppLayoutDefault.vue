@@ -30,6 +30,12 @@ const popupComponents = {
     AuthorizationAdmin,
 };
 
+const fromCart = ref(false);
+const showPopupFromCart = () => {
+    showPopup('Authorization');
+    fromCart.value = true;
+};
+
 document.querySelector('html').style.scrollbarGutter = 'stable';
 </script>
 
@@ -39,10 +45,10 @@ document.querySelector('html').style.scrollbarGutter = 'stable';
     </Transition>
 
     <AppPopup v-if="!rootStore.isMobile" v-model="popupIsOpen">
-        <component @closePopup="() => popupIsOpen = false" :is="popupComponents[popupComponent]" />
+        <component @closePopup="() => popupIsOpen = false" :is="popupComponents[popupComponent]" :fromCart="fromCart" />
     </AppPopup>
 
-    <TheCart v-model="cartIsOpen" />
+    <TheCart @showUserSignIn="showPopupFromCart" v-model="cartIsOpen" />
 
     <HeaderDrawer v-model="headerDrawerIsOpen" />
 
@@ -58,7 +64,9 @@ document.querySelector('html').style.scrollbarGutter = 'stable';
     </Suspense>
     <Wrapper>
         <main class="pt-3 pb-3 sm:pb-7">
-            <slot />
+            <Suspense>
+                <slot />
+            </Suspense>
         </main>
     </Wrapper>
 
